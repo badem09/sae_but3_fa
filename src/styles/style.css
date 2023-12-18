@@ -3,21 +3,31 @@
     src: url('src/fonts/heavitas/Heavitas.ttf') format('truetype');
 }
 
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 header {
-    position: absolute;
-    width: 100%;
-    top: 0; left: 0;
-    border-bottom:0;
     background-color: #73A6D6;
     color: white;
-}
-
-header h1{
     text-align: center;
-    font-family: "Heavitas", sans-serif;
-
+    padding: 10px;
 }
 
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.content {
+    max-width: 800px; /* Adjust as needed */
+    padding: 20px;
+}
 
 .Cards {
     padding-top: 100px;
@@ -79,5 +89,6 @@ p{
     font-family: "Heavitas", sans-serif;
     font-weight: bold;
 }
+
 
 
