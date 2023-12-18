@@ -1,0 +1,49 @@
+header {
+    background-color: #73A6D6;
+    color: white;
+    padding: 2%;
+}
+
+header h1{
+    text-align: center;
+}
+
+
+.Cards {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 7%;
+    margin: .5em 3% .5em 0;
+    border-radius: .3em;
+    box-shadow: 0 1px 2px 0 #eceeef;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background-position: center top;
+    width: 30%;
+    float: left;
+    background-size: cover;
+    transition:all 0.4s ease-in-out
+}
+
+.Cards:hover {
+    transform: scale(1.05);
+}
+
+.Cards img{
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.Cards p{
+    text-align: center;
+}
+
+
+
+
