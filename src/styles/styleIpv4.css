@@ -1,0 +1,66 @@
+.main{
+    padding-top: 100px;
+    padding-left: 1%;
+}
+
+.main p {
+    font-size: x-large;
+}
+
+.main form {
+    font-size: x-large;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+}
+
+input[type="text"]:focus,
+input[type="number"],
+textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.input_form{
+    padding: 10px;
+}
+
+input[type="submit"]{
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+
+}
+
+/* Styles pour le tableau */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Supprime les espaces entre les cellules */
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Styles pour les cellules du tableau (étiquettes et champs de saisie) */
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
