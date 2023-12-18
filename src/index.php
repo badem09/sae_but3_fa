@@ -8,23 +8,24 @@
 </head>
 <body>
 <header>
-        <h1>SAE BUT</h1>
+        <h1>SAÉ de Noël</h1>
 </header>
     <div class="Cards">
-        <div class="Card">
+        <a href="#" class="Card">
                 <img src="img/Ping.png" alt="Image 1">
                 <p>Module ping</p>
-        </div>
-        <div class="Card">
-            <img src="img/Ping.png" alt="Image 1">
-            <p>Module ping</p>
-        </div>
-        <div class="Card">
-            <img src="img/Ping.png" alt="Image 1">
-            <p>Module ping</p>
-        </div>
+        </a>
+        <a href="#" class="Card">
+            <img src="img/Ipv6.png" alt="Image 1">
+            <p>Module Ipv6</p>
+        </a>
+        <a href="#" class="Card">
+            <img src="img/Ipv4.png" alt="Image 1">
+            <p>Module Ipv4</p>
+        </a>
     </div>
 <footer>
-    <h1>Footer</h1>
+    <h1>Réalisé par Paul Baudinot, Demba Ba, Freddy Mendes, Dorian Gaspart.</h1>
 </footer>
+</body>
 </html>
