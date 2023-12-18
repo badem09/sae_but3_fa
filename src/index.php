@@ -10,10 +10,21 @@
 <header>
         <h1>SAE BUT</h1>
 </header>
-        <div class="Cards">
-            <div class="Card">
+    <div class="Cards">
+        <div class="Card">
                 <img src="img/Ping.png" alt="Image 1">
                 <p>Module ping</p>
-            </div>
         </div>
+        <div class="Card">
+            <img src="img/Ping.png" alt="Image 1">
+            <p>Module ping</p>
+        </div>
+        <div class="Card">
+            <img src="img/Ping.png" alt="Image 1">
+            <p>Module ping</p>
+        </div>
+    </div>
+<footer>
+    <h1>Footer</h1>
+</footer>
 </html>
