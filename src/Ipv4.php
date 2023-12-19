@@ -40,5 +40,5 @@ include("header.php");
 </div class="main">
 <script src="scripts/scriptIpv4.js"></script>
 <?php
-//include("footer.php");
+include("footer.php");
 ?>

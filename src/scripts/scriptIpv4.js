@@ -22,30 +22,28 @@ document.getElementById("subnet-form").addEventListener("submit", function(event
         if (cidrNotation && parseInt(cidrNotation) >= 1 && parseInt(cidrNotation) <= 30) {
             let result = calcSr(ipAddress, cidrNotation, val_sr_value);
             if (result != null){
-                const resultsTable = document.getElementById("results-table");
-
                 const tbody = document.querySelector("#results-table tbody");
 
                 tbody.innerHTML = "";
 
-                for (let i = 0; i < result.length; i++) {
-                    const newRow = document.createElement("tr");
-                    const adresseCell = document.createElement("td");
-                    adresseCell.textContent = result[i].adresse;
-                    const masqueCell = document.createElement("td");
-                    masqueCell.textContent = result[i].masque;
-                    const cidrCell = document.createElement("td");
-                    cidrCell.textContent = result[i].cidr;
-                    const machinesCell = document.createElement("td");
-                    machinesCell.textContent = result[i].machines;
+                    for (let i = 0; i < result.length; i++) {
+                        const newRow = document.createElement("tr");
+                        const adresseCell = document.createElement("td");
+                        adresseCell.textContent = result[i].adresse;
+                        const masqueCell = document.createElement("td");
+                        masqueCell.textContent = result[i].masque;
+                        const cidrCell = document.createElement("td");
+                        cidrCell.textContent = result[i].cidr;
+                        const machinesCell = document.createElement("td");
+                        machinesCell.textContent = result[i].machines;
 
-                    newRow.appendChild(adresseCell);
-                    newRow.appendChild(masqueCell);
-                    newRow.appendChild(cidrCell);
-                    newRow.appendChild(machinesCell);
+                        newRow.appendChild(adresseCell);
+                        newRow.appendChild(masqueCell);
+                        newRow.appendChild(cidrCell);
+                        newRow.appendChild(machinesCell);
 
-                    tbody.appendChild(newRow);
-            }
+                        tbody.appendChild(newRow);
+                }
 
             }
             else {
@@ -108,15 +106,16 @@ function calcSr(ip, CIDR, indicesMachines) {
 
         while (adressesDisponibles / 2 >= indiceMachines) {
             masqueOptimal++;
+            if (masqueOptimal >=30){
+                masqueOptimal = 30;
+                break;
+            }
             adressesDisponibles /= 2;
         }
 
         const masqueBinaire = '1'.repeat(masqueOptimal).padEnd(32, '0');
         const masqueDecimal = masqueBinaire.match(/.{8}/g).map(segment => parseInt(segment, 2)).join('.');
 
-        if (masqueOptimal > 30){
-            return null;
-        }
 
         sousReseaux.push({
             adresse: ip,

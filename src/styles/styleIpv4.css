@@ -1,6 +1,7 @@
 .main{
     padding-top: 100px;
     padding-left: 1%;
+    padding-bottom: 20%;
 }
 
 .main p {
@@ -57,6 +58,10 @@ input[type="submit"]{
 
 }
 
+input[type="submit"]:hover{
+    background-color: rgba(249, 249, 249, 0);
+}
+
 #btn_adr_ip {
     width: 20%;
     padding: 10px;
@@ -66,6 +71,10 @@ input[type="submit"]{
     color: #333;
     font-family: "Heavitas", sans-serif;
     font-weight: bold;
+}
+
+#btn_adr_ip:hover {
+    background-color: rgba(249, 249, 249, 0);
 }
 
 /* Styles pour le tableau */
