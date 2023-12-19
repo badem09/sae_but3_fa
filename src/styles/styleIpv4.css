@@ -14,6 +14,13 @@
 
 }
 
+.main label {
+    font-size: x-large;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+
+}
+
 input[type="text"],
 input[type="number"],
 textarea {
@@ -48,6 +55,17 @@ input[type="submit"]{
     font-family: "Heavitas", sans-serif;
     font-weight: bold;
 
+}
+
+#btn_adr_ip {
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
 }
 
 /* Styles pour le tableau */
