@@ -35,7 +35,7 @@ textarea:focus {
 }
 
 .input_form{
-    padding: 10px;
+    padding-bottom: 10px;
 }
 
 input[type="submit"]{

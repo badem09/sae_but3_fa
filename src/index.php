@@ -3,7 +3,7 @@ include("header.php");
 
 echo "<div class='Cards'>";
     $module = [
-            ["nom" => "Module ping", "img" => "img/Ping.png","lien" => "#"],
+            ["nom" => "Module ping", "img" => "img/Ping.png","lien" => "module1.php"],
             ["nom" => "Module Ipv4", "img" => "img/Ipv4.png","lien" => "Ipv4.php"],
             ["nom" => "Module Ipv6", "img" => "img/Ipv6.png","lien" => "#"],
     ];

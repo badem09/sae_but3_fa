@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
 
-	<?php require("header.html");?>
+	<?php require("header.php");?>
 	
 	<div class="content">
 	<h2> Module 1 : Ping d'une adresse Ipv4 </h2>
@@ -10,7 +10,7 @@
 	<button onclick="ping()"> Envoyer </button>
 	</div>
 	
-	<?php require("footer.html");?>
+	<?php require("footer.php");?>
 <script> 
 	//to do:
 	/*
