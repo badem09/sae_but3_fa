@@ -33,37 +33,28 @@
 	<?php require("footer.php");?>
 <script> 
     function showImage() {
-            var imageContainer = document.getElementById("ping_res");
-            imageContainer.innerHTML = '<img src="img/loading.webp" alt="Chargement">';
-        }
+        var imageContainer = document.getElementById("ping_res");
+        imageContainer.innerHTML = '<img src="img/loading.webp" alt="Chargement">';
+    }
+    
     function isValidIPAddress(input) {
 		var ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
 		return ipRegex.test(input);
 	}
+	
 	function updatePingTable(result) {
-            var pingTableBody = document.getElementById("pingTableBody");
-
-            // Create a new table row
-            var row = document.createElement("tr");
-
-            // Create table cells for timestamp and result
-            var timestampCell = document.createElement("td");
-            var resultCell = document.createElement("td");
-
-            // Set the timestamp cell content to the current time
-            var timestamp = new Date().toLocaleTimeString();
-            timestampCell.textContent = timestamp;
-
-            // Set the result cell content to the ping result
-            resultCell.innerHTML = '<pre>' + result + '</pre>';
-
-            // Append cells to the row
-            row.appendChild(timestampCell);
-            row.appendChild(resultCell);
-
-            // Append the row to the table body
-            pingTableBody.appendChild(row);
-        }
+        var pingTableBody = document.getElementById("pingTableBody");
+        var row = document.createElement("tr");
+        var timestampCell = document.createElement("td");
+        var resultCell = document.createElement("td");
+        var timestamp = new Date().toLocaleTimeString();
+        timestampCell.textContent = timestamp;
+        resultCell.innerHTML = '<pre>' + result + '</pre>';
+        row.appendChild(timestampCell);
+        row.appendChild(resultCell);
+        pingTableBody.appendChild(row);
+    }
+    
     function resetTable() {
         var pingTableBody = document.getElementById("pingTableBody");
         pingTableBody.innerHTML = ''; // Clear the content of the table body
@@ -74,7 +65,6 @@
     	$adr_ip = document.getElementById("input_adr_ip").value
     	$nb_paquets = document.getElementById("input_nb_paquets").value
     	var continu_checkbox = document.getElementById("input_continu")
-
     	if (isValidIPAddress($adr_ip)){
 	    	var url = "module1_ping.php?adr_ip="+$adr_ip + "&nb_paquets=" + $nb_paquets;
 	    	if (continu_checkbox.checked){
@@ -95,7 +85,6 @@
 		else {
 			alert('Ip not valid');
 		}
-
 	});
     
     
