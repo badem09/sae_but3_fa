@@ -110,3 +110,21 @@ p{
     font-family: "Heavitas", sans-serif;
     font-weight: bold;
 }
+
+#ping_res {
+    height: 300px;
+    overflow-y: auto;
+    border : 1px solid;
+}
+#pingTable {
+    width: 100%; /* Make the table fill the container width */
+    border-collapse: collapse; /* Remove spacing between table cells */
+}
+
+#pingTable thead {
+    position: sticky; /* Stick the header to the top */
+    top: 0; /* Align the header to the top */
+    background-color: #f2f2f2; /* Add a background color for visibility */
+}
+
+
