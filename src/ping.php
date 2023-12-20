@@ -38,6 +38,7 @@ accueil(1);
 			<tbody id="pingTableBody"></tbody>
 		</table>
 	</div>
+	<div id="div-resume"> </div>
 </div>
 <script src="scripts/scriptPing.js"></script>
 <?php
