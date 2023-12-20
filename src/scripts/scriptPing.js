@@ -1,8 +1,11 @@
-function showImage() {
-    var imageContainer = document.getElementById("ping_res");
+function showImageLoad() {
+    var imageContainer = document.getElementById("div_load");
     imageContainer.innerHTML = '<img src="img/loading.webp" alt="Chargement">';
 }
-
+function hideImageLoad(){
+    var imageContainer = document.getElementById("div_load");
+    imageContainer.innerHTML = '';
+}
 function isValidIPAddress(input) {
     var ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
     return ipRegex.test(input);
@@ -64,9 +67,11 @@ $('body').on('click', '#btn_adr_ip', function (){
         if (continu_checkbox.checked){
             url += "&continu=True";
         }
+	showImageLoad();
         eventSource = new EventSource(url);
         eventSource.onmessage = function (event) {
-            //console.log(event.data)
+            hideImageLoad();
+	    //console.log(event.data)
             if (event.data.startsWith("data_table:") && event.data.length > 11) {
                 updatePingTable(event.data.substring(11));
             } 
@@ -89,6 +94,7 @@ $('body').on('click', '#btn_adr_ip', function (){
 $('body').on('click', '#btn_stop_ping', function () {
     if (eventSource) {
         eventSource.close();
-    pingStarted = false;
+        pingStarted = false;
+	hideImageLoad();
     }
 });
