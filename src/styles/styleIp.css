@@ -19,7 +19,6 @@
     font-size: x-large;
     font-family: "Heavitas", sans-serif;
     font-weight: bold;
-
 }
 
 input[type="text"],
@@ -90,4 +89,18 @@ table {
 td {
     padding: 10px;
     border: 1px solid #ccc;
+}
+
+textarea{
+    height: 35px;
+    width: 16%;
+    margin-top: 10px;
+}
+
+#ping_res{
+    margin-right: 20px;
+}
+
+#tab_results{
+    margin-right: 20px;
 }

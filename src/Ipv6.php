@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="styles/styleIpv4.css">
-<link rel="stylesheet" href="styles/styleIpv6.css">
+<link rel="stylesheet" href="styles/styleIp.css">
 <?php
+//include l'header en affichant le bouton
 require("header.php");
-acceuil(1);
+accueil(1);
 ?>
 <div class="main">
     <p>Module 2 : IPv6</p>
@@ -16,22 +16,13 @@ acceuil(1);
     </form>
     <div class="tab_val">
         <div>
-            <label>Simplification :</label>
-            <label>
-                <textarea disabled id="simp"></textarea>
-            </label>
+            <label>Simplification : <textarea disabled id="simp"></textarea></label>
         </div>
         <div>
-            <label>Bits de poid fort :</label>
-            <label>
-                <textarea disabled id="binaire"></textarea>
-            </label>
+            <label>Bits de poid fort : <textarea disabled id="binaire"></textarea></label>
         </div>
         <div>
-            <label>Son type :</label>
-            <label>
-                <textarea disabled id="type"></textarea>
-            </label>
+            <label>Son type : <textarea disabled id="type"></textarea></label>
         </div>
     </div>
 </div>

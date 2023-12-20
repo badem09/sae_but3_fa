@@ -2,10 +2,10 @@
 <!doctype html>
 <html lang="fr">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<link rel="stylesheet" href="styles/styleIpv4.css">
+<link rel="stylesheet" href="styles/styleIp.css">
 <?php
 require("header.php");
-acceuil(1);
+accueil(1);
 ?>
 <div class="main">
 	<p> Module 1 : Ping d'une adresse Ipv4 </p>

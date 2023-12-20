@@ -1,25 +1,39 @@
+// ajoute un événement lorsque le bouton est cliqué
 document.getElementById("subnet-form").addEventListener("submit", function(event) {
     event.preventDefault();
+    // recupere l'élément ipV6
     const ipv6 = document.getElementById("ip");
+    // check si la valeur correspond a une ipv6
     if (isIPv6(ipv6.value)){
+        // recupere l'élément simplification
         const simp = document.getElementById("simp");
-        simp.value = simplifierIPv6AvecBinaireEtType(ipv6.value).adresseIPv6Simplifiee;
+        // fait l'opération pour avoir la simplification et l'affiche sur la page
+        simp.value = simplifier_Binaire_Type_ipv6(ipv6.value).adresseIPv6Simplifiee;
+        // recupere l'élément binaire
         const binaire = document.getElementById("binaire");
-        binaire.value = simplifierIPv6AvecBinaireEtType(ipv6.value).binaireOctetsDePoidsFort;
+        // fait l'opération pour avoir les binaires et l'affiche sur la page
+        binaire.value = simplifier_Binaire_Type_ipv6(ipv6.value).binaireOctetsDePoidsFort;
+        // recupere l'élément type
         const type = document.getElementById("type");
-        type.value = simplifierIPv6AvecBinaireEtType(ipv6.value).typeAdresseIPv6;
+        // fait l'opération pour avoir le type et l'affiche sur la page
+        type.value = simplifier_Binaire_Type_ipv6(ipv6.value).typeAdresseIPv6;
     }
     else {
+        // renvoie une erreur si le champs n'est pas une ipv6
         alert("Ip invalide");
     }
 });
 
+// retroune true si le champ est une ipv6 et false si ce n'est pas le cas
 function isIPv6(ip) {
-    const ipv6Regex = /^([\da-f]{1,4}:){7}[\da-f]{1,4}$/i;
-    if (ipv6Regex.test(ip)) {
-        const parts = ip.split(':');
-        for (let part of parts) {
-            if (part.length > 4) {
+    // ceci est le pattern d'une ipv6
+    const ipv6 = /^([\da-f]{1,4}:){7}[\da-f]{1,4}$/i;
+    // vérification du match entre l'ip est le pattern
+    if (ipv6.test(ip)) {
+        const parties = ip.split(':');
+        for (let partie of parties) {
+            // check si l'ip a moins de 4 éléments par partie
+            if (partie.length > 4) {
                 return false;
             }
         }
@@ -28,8 +42,11 @@ function isIPv6(ip) {
     return false;
 }
 
-function simplifierIPv6AvecBinaireEtType(ip) {
-    // Supprimer les zéros inutiles dans chaque segment
+
+// cette fonction prend une ipv6 en entrée et retourne sa simplification ainsi que ses bits de poid fort et son type
+function simplifier_Binaire_Type_ipv6(ip) {
+    // simplification
+    // Supprimer les zéros inutiles
     const segments = ip.split(":");
     for (let i = 0; i < segments.length; i++) {
         segments[i] = segments[i].replace(/^0+/, "");
@@ -52,7 +69,7 @@ function simplifierIPv6AvecBinaireEtType(ip) {
         }
     }
 
-    // Si un groupe de zéros a été trouvé, remplacez-le par ::
+    // Si un groupe de zéros a été trouvé remplacez-le par ::
     if (maxZeroGroupLength > 1) {
         segments.splice(maxZeroGroupIndex, maxZeroGroupLength, "");
     }
