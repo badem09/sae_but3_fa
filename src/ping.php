@@ -1,6 +1,3 @@
-<!doctype html>
-<html lang="fr">
-
 <link rel="stylesheet" href="styles/styleIp.css">
 <?php
 require("header.php");
@@ -48,6 +45,8 @@ accueil(1);
 </div>
 
 <script src="scripts/scriptPing.js"></script>
+</body>
+</html>
 <?php
 include("footer.php");
 ?>
