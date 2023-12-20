@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="fr">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -8,14 +7,14 @@ require("header.php");
 accueil(1);
 ?>
 <div class="main">
-	<p> Module 1 : Ping d'une adresse Ipv4 </p>
+	<p> Module 1 : Ping d'une adresse Ipv4 ou URL </p>
         <div id="subnet-form">
             <div class="input_form">
-                <label for='adr_ip'> Adresse Ip à ping : </label>
-                <input type="text" id="input_adr_ip" required>
-            </div>
+                <label for='adr_ip'> Adresse à ping : </label>
+        	<input type="text" id="input_adr_ip" required>
+	    </div>
             <div class="input_form">
-                <label for='adr_ip'> Nombre de paquets à envoyer </label>
+                <label for='adr_ip'> Nombre de paquets à envoyer : </label>
                 <input id="input_nb_paquets" type="number" min="1" max="100">
             </div>
             <div class="input_form">
@@ -24,8 +23,8 @@ accueil(1);
             </div>
             <div class="input_form">
                 <button id='btn_adr_ip'> Ping ! </button>
-            </div>
-	    <button id='btn_stop_ping'> Stop </button>
+                <button id='btn_stop_ping'> Stop </button>
+	    </div>
         </div>
 	<div id='div_load'></div>
   	<div id='ping_res'>
@@ -39,6 +38,7 @@ accueil(1);
 			<tbody id="pingTableBody"></tbody>
 		</table>
 	</div>
+	<p> Output du Ping : </p>
 	<div id="div-resume"> </div>
 </div>
 <script src="scripts/scriptPing.js"></script>
