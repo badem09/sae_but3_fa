@@ -54,12 +54,14 @@ function toggleInputs() {
     // If "En continu" is checked, disable "Nombre de paquets"
     nbPaquetsInput.disabled = continuCheckbox.checked;
 
-    // If "Nombre de paquets" is filled out, uncheck and disable "En continu"
+    // If "Nombre de paquets" is filled out, disable "En continu"
+    continuCheckbox.disabled = nbPaquetsInput.value !== '';
+
+    // If "Nombre de paquets" is filled out, uncheck "En continu"
     if (nbPaquetsInput.value) {
         continuCheckbox.checked = false;
-        continuCheckbox.disabled = true
     }
-    continuCheckbox.style.color = continuCheckbox.disabled ? 'gray' : '';
+
 }
 // Vide les inputs
 window.onload = function() {
