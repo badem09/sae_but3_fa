@@ -1,11 +1,9 @@
 function showImageLoad() {
-    var imageContainer = document.getElementById("div_load");
-    imageContainer.innerHTML = '<img src="img/loading.webp" alt="Chargement">';
+    document.getElementById("div_load").innerHTML = '<img src="img/loading.webp" alt="Chargement">';
 }
 
 function hideImageLoad(){
-    var imageContainer = document.getElementById("div_load");
-    imageContainer.innerHTML = '';
+    document.getElementById("div_load").innerHTML = '';
 }
 
 function isValidIPAddress(input) {
@@ -14,6 +12,9 @@ function isValidIPAddress(input) {
 }
 
 function updatePingTable(result) {
+    /**
+     * Adds a new td : timestamp, pingResult to the table 'pingTable' and scrolls to the bottom
+     */
     var pingTableBody = document.getElementById("pingTableBody");
     var row = document.createElement("tr");
     var timestampCell = document.createElement("td");
@@ -24,7 +25,7 @@ function updatePingTable(result) {
     row.appendChild(timestampCell);
     row.appendChild(resultCell);
     pingTableBody.appendChild(row);
-   
+
     var pingResDiv = document.getElementById("ping_res");
     pingResDiv.scrollTop = pingResDiv.scrollHeight; // scroll to the bottom
 }
@@ -53,16 +54,14 @@ function toggleInputs() {
     // If "En continu" is checked, disable "Nombre de paquets"
     nbPaquetsInput.disabled = continuCheckbox.checked;
 
-    // If "Nombre de paquets" is filled out, disable "En continu"
-    continuCheckbox.disabled = nbPaquetsInput.value !== '';
-
-    // If "Nombre de paquets" is filled out, uncheck "En continu"
+    // If "Nombre de paquets" is filled out, uncheck and disable "En continu"
     if (nbPaquetsInput.value) {
         continuCheckbox.checked = false;
+        continuCheckbox.disabled = true
     }
     continuCheckbox.style.color = continuCheckbox.disabled ? 'gray' : '';
 }
-
+// Vide les inputs
 window.onload = function() {
     document.getElementById("input_nb_paquets").value = "";
     document.getElementById("input_continu").checked = false;
@@ -77,12 +76,12 @@ $('body').on('click', '#btn_adr_ip', function (){
     $nb_paquets = document.getElementById("input_nb_paquets").value
     var continu_checkbox = document.getElementById("input_continu")
 
-   //Vérifier les champhs   
+   //Vérifier les champs
     if (!(isValidIPAddress($adr_ip) || isURL($adr_ip))){
         alert("L'adresse n'est pas valide");
     }
     else if (!continu_checkbox.checked && $nb_paquets == ""){
-        alert("Veuillez saisir le nombre de paquets ou cocher 'En continu'�");
+        alert("Veuillez saisir le nombre de paquets ou cocher 'En continu'�");
     }
     else if (pingStarted == true){
         alert("Un ping a deja ete lancé. Veuillez le stopper.");
@@ -95,18 +94,18 @@ $('body').on('click', '#btn_adr_ip', function (){
         if (continu_checkbox.checked){
             url += "&continu=True";
         }
-	showImageLoad();
+        showImageLoad();
         eventSource = new EventSource(url);
         eventSource.onmessage = function (event) {
             console.log("ok",event.data);
- 	    hideImageLoad();
-            if (event.data.startsWith("data_table:") && event.data.length > 11) {
+            hideImageLoad();
+            if (event.data.startsWith("data_table:") && event.data.length > 11) { // ping
                 updatePingTable(event.data.substring(11));
-            } 
-            else if (event.data.startsWith("data_resume:")  && event.data.length > 11) {
+            }
+            else if (event.data.startsWith("data_resume:")  && event.data.length > 11) { // resume des ping (fin de l'output de la commande)
                 updateDivResume(event.data.substring(12));
             }
-            else if (event.data.startsWith("data_unvalid_ip:")  && event.data.length > 16){
+            else if (event.data.startsWith("data_unvalid_ip:")  && event.data.length > 16){// ping infructueux
                 updateDivResume(event.data.substring(16));
                 pingStarted = false;
             }
@@ -123,6 +122,6 @@ $('body').on('click', '#btn_stop_ping', function () {
     if (eventSource) {
         eventSource.close();
         pingStarted = false;
-	hideImageLoad();
+        hideImageLoad();
     }
 });
