@@ -22,7 +22,7 @@ header {
     padding: 10px;
 }
 
-button{
+#redirectButton{
     text-align: center;
     min-width: 100px;
     width: 10%;
@@ -36,7 +36,7 @@ button{
     font-weight: bold;
     position: absolute;
 }
-button:hover{
+#redirectButton:hover{
     background-color: rgba(249, 249, 249, 0);
 }
 
