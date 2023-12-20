@@ -127,4 +127,36 @@ p{
     background-color: #f2f2f2; /* Add a background color for visibility */
 }
 
+.vert-cont {
+    flex-direction: column;
+    align-items: center; /* Align items in the center horizontally */
+    margin: 0 auto; /* Center the div horizontally */
+    padding: 20px; /* Add padding for better appearance */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    display: flex; /* Use flexbox to align items */
+}
+
+.main {
+    display: flex; /* Children of main will be aligned horizontally */
+    margin: 20px; /* Add margin for spacing */
+    padding: 20px; /* Add padding for better appearance */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+#subnet-form {
+    flex: 1; /* Take up remaining space in main */
+}
+
+#div_load {
+    /* Add styles for div_load if needed */
+}
+
+
+#div-resume {
+    margin: 20px; /* Add margin for spacing */
+    padding : 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    align-self: flex-start; /* Align div-resume at the start of the cross axis */
+    align-self: center;
+}
 
