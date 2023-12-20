@@ -2,10 +2,12 @@ function showImageLoad() {
     var imageContainer = document.getElementById("div_load");
     imageContainer.innerHTML = '<img src="img/loading.webp" alt="Chargement">';
 }
+
 function hideImageLoad(){
     var imageContainer = document.getElementById("div_load");
     imageContainer.innerHTML = '';
 }
+
 function isValidIPAddress(input) {
     var ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
     return ipRegex.test(input);
@@ -22,11 +24,13 @@ function updatePingTable(result) {
     row.appendChild(timestampCell);
     row.appendChild(resultCell);
     pingTableBody.appendChild(row);
+   
+    var pingResDiv = document.getElementById("ping_res");
+    pingResDiv.scrollTop = pingResDiv.scrollHeight; // scroll to the bottom
 }
 
 function resetTable() {
-    var pingTableBody = document.getElementById("pingTableBody");
-    pingTableBody.innerHTML = '';
+    document.getElementById("pingTableBody").innerHTML = '';
 }
 
 function resetDivResume(){
@@ -39,9 +43,7 @@ function isURL(str) {
 }
 
 function updateDivResume(data) {
-    console.log('updatesummary');
-    var summaryDiv = document.getElementById("div-resume");
-    summaryDiv.innerHTML += "<p>" + data + "</p><br>";
+    document.getElementById("div-resume").innerHTML += "<p>" + data + "</p><br>";
 }
 
 
@@ -49,14 +51,19 @@ var eventSource;
 var pingStarted;
 
 $('body').on('click', '#btn_adr_ip', function (){
-    console.log(pingStarted);
+
     $adr_ip = document.getElementById("input_adr_ip").value
     $nb_paquets = document.getElementById("input_nb_paquets").value
     var continu_checkbox = document.getElementById("input_continu")
+
+   //Vérifier les champhs   
     if (!(isValidIPAddress($adr_ip) || isURL($adr_ip))){
         alert("L'adresse n'est pas valide");
     }
-    if (pingStarted == true){
+    else if (!continu_checkbox.checked && $nb_paquets == ""){
+        alert("Le nombre de paquets à envoyer n'a pas étéspécifié");
+    }
+    else if (pingStarted == true){
         alert("Un ping a deja ete lancé. Veuillez le stopper.");
     }
     else{
@@ -71,7 +78,6 @@ $('body').on('click', '#btn_adr_ip', function (){
         eventSource = new EventSource(url);
         eventSource.onmessage = function (event) {
             hideImageLoad();
-	    //console.log(event.data)
             if (event.data.startsWith("data_table:") && event.data.length > 11) {
                 updatePingTable(event.data.substring(11));
             } 
