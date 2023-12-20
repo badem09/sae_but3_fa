@@ -27,7 +27,8 @@ accueil(1);
             </div>
 	    <button id='btn_stop_ping'> Stop </button>
         </div>
-	<div id='ping_res'>
+	<div id='div_load'></div>
+  	<div id='ping_res'>
 		 <table id="pingTable">
 			<thead>
 			    <tr>
