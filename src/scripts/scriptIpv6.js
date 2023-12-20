@@ -47,38 +47,62 @@ function isIPv6(ip) {
 function simplifier_Binaire_Type_ipv6(ip) {
     // simplification
     // Supprimer les zéros inutiles
-    const segments = ip.split(":");
-    for (let i = 0; i < segments.length; i++) {
-        segments[i] = segments[i].replace(/^0+/, "");
+    const morceau = ip.split(":");
+    for (let i = 0; i < morceau.length; i++) {
+        morceau[i] = morceau[i].replace(/^0+/, "");
     }
 
     // Trouver l'emplacement du groupe de zéros le plus long
-    let maxZeroGroupIndex = -1;
-    let maxZeroGroupLength = 0;
-    let zeroGroupLength = 0;
+    let IndexMaxGzero = -1;
+    let maxGzero = 0;
+    let Gzerolen = 0;
 
-    for (let i = 0; i < segments.length; i++) {
-        if (segments[i] === "") {
-            zeroGroupLength++;
-            if (zeroGroupLength > maxZeroGroupLength) {
-                maxZeroGroupLength = zeroGroupLength;
-                maxZeroGroupIndex = i - zeroGroupLength + 1;
+    for (let i = 0; i < morceau.length; i++) {
+        if (morceau[i] === "") {
+            Gzerolen++;
+            if (Gzerolen > maxGzero) {
+                maxGzero = Gzerolen;
+                IndexMaxGzero = i - Gzerolen + 1;
             }
         } else {
-            zeroGroupLength = 0;
+            Gzerolen = 0;
         }
     }
 
     // Si un groupe de zéros a été trouvé remplacez-le par ::
-    if (maxZeroGroupLength > 1) {
-        segments.splice(maxZeroGroupIndex, maxZeroGroupLength, "");
+    if (maxGzero > 1) {
+        morceau.splice(IndexMaxGzero, maxGzero, "");
     }
 
     // Rejoindre les segments pour former l'adresse IPv6 simplifiée
-    const simplifiedIPv6 = segments.join(":");
+    let simplifiedIPv6 = morceau.join(":");
+
+    if(simplifiedIPv6 === ""){
+        simplifiedIPv6 = "::";
+    }
+
+    // remplace les :: par des :0:
+    for (let i=0;i<8;i++){
+        simplifiedIPv6 = simplifiedIPv6.replace(/::(?!:)/g, (match, offset) => (offset === 0 ? match : ":0:"));
+    }
+
+    // remplace le premier ":" par un "::" si il n'est pas deja suivi par un ":"
+    if(simplifiedIPv6[0] === ":" && simplifiedIPv6[1] !== ":"){
+        simplifiedIPv6 = ":"+simplifiedIPv6 ;
+    }
+
+    // rajoute un "0" a la fin si il termine par un ":"
+    if(simplifiedIPv6[(simplifiedIPv6.length)-1] === ":"){
+        simplifiedIPv6 = simplifiedIPv6+"0" ;
+    }
+
+    // cas particuler de bug
+    if(simplifiedIPv6 === "::0:0"){
+        simplifiedIPv6 = "::";
+    }
 
     // Obtenir le premier segment (premier octet) et convertissez-le en entier
-    const premierOctet = parseInt(segments[0], 16);
+    const premierOctet = parseInt(morceau[0], 16);
 
     // Déterminer le type d'adresse IPv6 en fonction du premier octet
     let typeAdresse = "";
@@ -95,7 +119,7 @@ function simplifier_Binaire_Type_ipv6(ip) {
     }
 
     // Obtenir les 16 premiers bits en notation binaire
-    const binaryPrefix = segments[0] ? parseInt(segments[0], 16).toString(2).padStart(16, "0") : "";
+    const binaryPrefix = morceau[0] ? parseInt(morceau[0], 16).toString(2).padStart(16, "0") : "";
 
     return {
         adresseIPv6Simplifiee: simplifiedIPv6,

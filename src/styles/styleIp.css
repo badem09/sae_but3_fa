@@ -76,6 +76,22 @@ input[type="submit"]:hover{
     background-color: rgba(249, 249, 249, 0);
 }
 
+#btn_stop_ping{
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#btn_stop_ping:hover {
+    background-color: rgba(249, 249, 249, 0);
+}
+
 /* Styles pour le tableau */
 table {
     width: 100%;
@@ -93,7 +109,7 @@ td {
 
 textarea{
     height: 35px;
-    width: 16%;
+    width: 20%;
     margin-top: 10px;
 }
 

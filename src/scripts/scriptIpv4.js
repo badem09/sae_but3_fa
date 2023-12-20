@@ -1,11 +1,15 @@
+// ajoute un événement lorsque le bouton est cliqué
 document.getElementById("subnet-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
+    // recupere les valeurs de l'ip et du cidr
     let ipAddress = document.getElementById("ip").value;
     let cidrNotation = document.getElementById("cidr").value;
 
+    // liste des valeurs des sous reseaux
     let val_sr_value = [];
 
+    // verifie que les valeurs des sous reseaux sont valide
     for (let i = 0; i < 50; i++) {
         const val_sr = document.getElementById("val_sr" + i);
         if (val_sr) {
@@ -18,29 +22,33 @@ document.getElementById("subnet-form").addEventListener("submit", function(event
         }
     }
 
+    // si l'ip est bien une ipv4
     if (isIPv4(ipAddress)) {
+        // verifie que le cidr est valide
         if (cidrNotation && parseInt(cidrNotation) >= 1 && parseInt(cidrNotation) <= 30) {
+            // retourne dans result les valeur pour l'ip le cird et les valeur de sous reseaux
             let result = calcSr(ipAddress, cidrNotation, val_sr_value);
+            // si le calcule a marché
             if (result != null){
                 const tbody = document.querySelector("#results-table tbody");
 
                 tbody.innerHTML = "";
-
+                    //fabrique le tableau grace au resultat
                     for (let i = 0; i < result.length; i++) {
                         const newRow = document.createElement("tr");
-                        const adresseCell = document.createElement("td");
-                        adresseCell.textContent = result[i].adresse;
-                        const masqueCell = document.createElement("td");
-                        masqueCell.textContent = result[i].masque;
-                        const cidrCell = document.createElement("td");
-                        cidrCell.textContent = result[i].cidr;
-                        const machinesCell = document.createElement("td");
-                        machinesCell.textContent = result[i].machines;
+                        const adresse = document.createElement("td");
+                        adresse.textContent = result[i].adresse;
+                        const masque = document.createElement("td");
+                        masque.textContent = result[i].masque;
+                        const cidr = document.createElement("td");
+                        cidr.textContent = result[i].cidr;
+                        const machines = document.createElement("td");
+                        machines.textContent = result[i].machines;
 
-                        newRow.appendChild(adresseCell);
-                        newRow.appendChild(masqueCell);
-                        newRow.appendChild(cidrCell);
-                        newRow.appendChild(machinesCell);
+                        newRow.appendChild(adresse);
+                        newRow.appendChild(masque);
+                        newRow.appendChild(cidr);
+                        newRow.appendChild(machines);
 
                         tbody.appendChild(newRow);
                 }
@@ -80,32 +88,43 @@ document.getElementById("nb_sr").addEventListener('input', function() {
 });
 
 
+// retroune true si le champ est une ipv6 et false si ce n'est pas le cas
 function isIPv4(str) {
-    const ipv4Pattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    // ceci est le pattern d'une ipv4
+    const ipv4 = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-    return ipv4Pattern.test(str);
+    // vérification du match entre l'ip est le pattern
+    return ipv4.test(str);
 }
 
+// fonction de calcule
 function calcSr(ip, CIDR, indicesMachines) {
+    // recupere le cidr en int
     const cidr = parseInt(CIDR);
 
+    // verifie le cidr
     if (isNaN(cidr) || cidr < 0 || cidr > 32) {
         return null;
     }
 
+    // calcule toutes les adresse possible
     const adressesPossibles = Math.pow(2, 32 - cidr);
     const sousReseaux = [];
 
+    // verifie cela ne depasse pas les adresses possible
     for (const indiceMachines of indicesMachines) {
         if (indiceMachines <= 0 || indiceMachines > adressesPossibles) {
             return null;
         }
 
+
         let masqueOptimal = cidr;
         let adressesDisponibles = adressesPossibles;
 
+        // calcule de masque optimal
         while (adressesDisponibles / 2 >= indiceMachines) {
             masqueOptimal++;
+            // si le masque optimal est superieur a 30 alors return 30 evite des erreurs
             if (masqueOptimal >=30){
                 masqueOptimal = 30;
                 break;
@@ -113,10 +132,11 @@ function calcSr(ip, CIDR, indicesMachines) {
             adressesDisponibles /= 2;
         }
 
+        // convretie le masque optmal en binaire
         const masqueBinaire = '1'.repeat(masqueOptimal).padEnd(32, '0');
         const masqueDecimal = masqueBinaire.match(/.{8}/g).map(segment => parseInt(segment, 2)).join('.');
 
-
+        // renvoi dans une liste les valeurs suivante
         sousReseaux.push({
             adresse: ip,
             masque: masqueDecimal,
@@ -124,8 +144,10 @@ function calcSr(ip, CIDR, indicesMachines) {
             machines: indiceMachines
         });
 
+        // donne l'ip en binaire
         const ipBinaire = ip.split('.').map(segment => parseInt(segment).toString(2).padStart(8, '0'));
         const ipDecimale = parseInt(ipBinaire.join(''), 2) + indiceMachines;
+        // donne l'ip de depart pour le prochain sous reseaux
         ip = ipDecimale.toString(2).padStart(32, '0').match(/.{8}/g).map(segment => parseInt(segment, 2)).join('.');
     }
 

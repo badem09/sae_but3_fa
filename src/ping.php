@@ -23,7 +23,7 @@ accueil(1);
                 <input id="input_continu" type="checkbox">
             </div>
             <div class="input_form">
-                <button id='btn_adr_ip'> Envoyer </button>
+                <button id='btn_adr_ip'> Ping ! </button>
             </div>
 	    <button id='btn_stop_ping'> Stop </button>
         </div>
