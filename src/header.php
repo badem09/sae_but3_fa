@@ -6,6 +6,7 @@
     <title>SAÉ de Noël</title>
     <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="scripts/script.js"></script>
 </head>
 <body>
