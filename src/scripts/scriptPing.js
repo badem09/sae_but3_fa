@@ -46,6 +46,23 @@ function updateDivResume(data) {
     document.getElementById("div-resume").innerHTML += "<p>" + data + "</p><br>";
 }
 
+function toggleInputs() {
+    var nbPaquetsInput = document.getElementById("input_nb_paquets");
+    var continuCheckbox = document.getElementById("input_continu");
+
+    // If "En continu" is checked, disable "Nombre de paquets"
+    nbPaquetsInput.disabled = continuCheckbox.checked;
+
+    // If "Nombre de paquets" is filled out, disable "En continu"
+    continuCheckbox.disabled = nbPaquetsInput.value !== '';
+
+    // If "Nombre de paquets" is filled out, uncheck "En continu"
+    if (nbPaquetsInput.value) {
+        continuCheckbox.checked = false;
+    }
+    continuCheckbox.style.color = continuCheckbox.disabled ? 'gray' : '';
+}
+
 
 var eventSource;
 var pingStarted;
@@ -61,7 +78,7 @@ $('body').on('click', '#btn_adr_ip', function (){
         alert("L'adresse n'est pas valide");
     }
     else if (!continu_checkbox.checked && $nb_paquets == ""){
-        alert("Le nombre de paquets à envoyer n'a pas étéspécifié");
+        alert("Veuillez saisir le nombre de paquets ou cocher 'En continu'�");
     }
     else if (pingStarted == true){
         alert("Un ping a deja ete lancé. Veuillez le stopper.");
@@ -77,7 +94,8 @@ $('body').on('click', '#btn_adr_ip', function (){
 	showImageLoad();
         eventSource = new EventSource(url);
         eventSource.onmessage = function (event) {
-            hideImageLoad();
+            console.log("ok",event.data);
+ 	    hideImageLoad();
             if (event.data.startsWith("data_table:") && event.data.length > 11) {
                 updatePingTable(event.data.substring(11));
             } 
