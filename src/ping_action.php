@@ -45,11 +45,13 @@ if (is_resource($process)) {
         // Check for process termination
         $status = proc_get_status($process);
         if (!$status['running']) {
+	    echo "data: sortie status";
             break;
         }
 
         // Check for client disconnect
         if (connection_aborted()) {
+        	echo "data: stop connection";
             break;
         }
         // If the ping has been running for more than 10 seconds : Ip unreachable
@@ -60,6 +62,7 @@ if (is_resource($process)) {
             break;
         }
     }
+    echo "data: stop 3";
     fclose($pipes[1]);
     fclose($pipes[2]);
     proc_close($process);
