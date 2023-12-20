@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="styles/styleIpv4.css">
 <?php
-include("header.php");
+require("header.php");
+acceuil(1);
 ?>
 <div class="main">
     <p>Module 3 : Subnet Calculator</p>

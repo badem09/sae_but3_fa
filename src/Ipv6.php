@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="styles/styleIpv4.css">
 <link rel="stylesheet" href="styles/styleIpv6.css">
 <?php
-include("header.php");
+require("header.php");
+acceuil(1);
 ?>
 <div class="main">
     <p>Module 2 : IPv6</p>

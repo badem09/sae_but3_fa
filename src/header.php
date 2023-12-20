@@ -7,9 +7,19 @@
     <script src="scripts/script.js"></script>
 </head>
 <body>
-<header>
-    <nav class="nav_home">
-        <a href="index.php">Accueil</a> 
-    </nav>
-    <h1>SAÉ de Noël</h1>
-</header>
+<?php
+    function acceuil($val){
+        if ($val == 1){
+            echo "<header>
+                  <button id='redirectButton'>Acceuil</button>
+                  <h1>SAÉ de Noël</h1>
+                  </header>";
+        }
+        else{
+            echo "<header>
+                  <h1>SAÉ de Noël</h1>
+                  </header>";
+        }
+    }
+    ?>
+
