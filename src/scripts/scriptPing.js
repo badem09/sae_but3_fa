@@ -23,12 +23,11 @@ function updatePingTable(result) {
 
 function resetTable() {
     var pingTableBody = document.getElementById("pingTableBody");
-    pingTableBody.innerHTML = ''; // Clear the content of the table body
+    pingTableBody.innerHTML = ''; 
 }
 
 function isURL(str) {
     const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
-
     return urlPattern.test(str);
 }
 
@@ -56,7 +55,7 @@ $('body').on('click', '#btn_adr_ip', function (){
         };
     }
     else {
-        alert('Ip not valid');
+        alert("L'adresse n'est pas valide");
     }
 });
 

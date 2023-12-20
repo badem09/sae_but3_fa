@@ -23,17 +23,17 @@
                 <button id='btn_adr_ip'> Envoyer </button>
             </div>
         </div>
-		<div id='ping_res'>
-			 <table id="pingTable">
-				<thead>
-				    <tr>
-				        <td>Timestamp</td>
-				        <td>Result</td>
-				    </tr>
-				</thead>
-				<tbody id="pingTableBody"></tbody>
-			</table>
-		</div>
+	<div id='ping_res'>
+		 <table id="pingTable">
+			<thead>
+			    <tr>
+			        <td>Timestamp</td>
+			        <td>Result</td>
+			    </tr>
+			</thead>
+			<tbody id="pingTableBody"></tbody>
+		</table>
+	</div>
 </div>
 <script src="scripts/scriptPing.js"></script>
 <?php
