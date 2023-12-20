@@ -42,7 +42,7 @@ if (is_resource($process)) {
             break;
         }
 
-        usleep(1000); // Sleep for 1ms (adjust as needed)
+//        usleep(1000); // Sleep for 1ms (adjust as needed)
 
         // Check for client disconnect
         if (connection_aborted()) {
