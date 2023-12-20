@@ -19,6 +19,8 @@ $descriptorspec = array(
 );
 
 $process = proc_open($command, $descriptorspec, $pipes);
+set_time_limit(0); // Set to 0 for no time limit
+ob_end_flush();
 
 if (is_resource($process)) {
     stream_set_blocking($pipes[1], 0); // Set non-blocking mode for stdout
