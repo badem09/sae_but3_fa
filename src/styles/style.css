@@ -136,7 +136,7 @@ p{
     display: flex; /* Use flexbox to align items */
 }
 
-.main {
+#main {
     display: flex; /* Children of main will be aligned horizontally */
     margin: 20px; /* Add margin for spacing */
     padding: 20px; /* Add padding for better appearance */

@@ -7,7 +7,7 @@ accueil(1);
 <h1 class='title'> Module 1 : Ping d'une adresse Ipv4 ou URL </h1>
 
 <div class="vert-cont">
-    <div class="main">
+    <div id="ping-main">
         <div id="subnet-form">
             <div class="input_form">
                 <label for='adr_ip'> Adresse à ping : </label>
