@@ -63,6 +63,10 @@ function toggleInputs() {
     continuCheckbox.style.color = continuCheckbox.disabled ? 'gray' : '';
 }
 
+window.onload = function() {
+    document.getElementById("input_nb_paquets").value = "";
+    document.getElementById("input_continu").checked = false;
+};
 
 var eventSource;
 var pingStarted;
