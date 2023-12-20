@@ -31,7 +31,7 @@ function isURL(str) {
     return urlPattern.test(str);
 }
 
-
+var eventSource;
 $('body').on('click', '#btn_adr_ip', function (){
     resetTable();
     $adr_ip = document.getElementById("input_adr_ip").value
@@ -43,7 +43,7 @@ $('body').on('click', '#btn_adr_ip', function (){
             url += "&continu=True";
         }
         //$("#ping_res").load((url) , function(a,b,c) {});
-        var eventSource = new EventSource(url);
+        eventSource = new EventSource(url);
         eventSource.onmessage = function (event) {
             if (event.data != ""){
                 updatePingTable(event.data);
@@ -56,6 +56,14 @@ $('body').on('click', '#btn_adr_ip', function (){
     }
     else {
         alert("L'adresse n'est pas valide");
+    }
+});
+
+$('body').on('click', '#btn_stop_ping', function () {
+    // Stop the ping process
+    if (eventSource) {
+        alert('close');
+        eventSource.close();
     }
 });
 

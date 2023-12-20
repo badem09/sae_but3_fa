@@ -25,6 +25,7 @@ acceuil(1);
             <div class="input_form">
                 <button id='btn_adr_ip'> Envoyer </button>
             </div>
+	    <button id='btn_stop_ping'> Stop </button>
         </div>
 	<div id='ping_res'>
 		 <table id="pingTable">
