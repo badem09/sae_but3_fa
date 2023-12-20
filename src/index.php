@@ -1,15 +1,17 @@
 <?php
+//include l'header sans afficher le bouton
 include("header.php");
-acceuil(0);
+accueil(0);
 echo "<div class='Cards'>";
+    //Génère les différentes cards du menu
     $module = [
-            ["nom" => "Module ping", "img" => "img/Ping.png","lien" => "ping.php"],
-            ["nom" => "Module Ipv6", "img" => "img/Ipv6.png","lien" => "Ipv6.php"],
-            ["nom" => "Module Ipv4", "img" => "img/Ipv4.png","lien" => "Ipv4.php"],
+            ["nom" => "Module ping", "img" => "img/Ping.png", "alt" => "Module ping image","lien" => "ping.php"],
+            ["nom" => "Module Ipv6", "img" => "img/Ipv6.png", "alt" => "Module ipv6 image","lien" => "Ipv6.php"],
+            ["nom" => "Module Ipv4", "img" => "img/Ipv4.png", "alt" => "Module ipv4 image","lien" => "Ipv4.php"],
     ];
 
-    foreach ($module as ["nom" => $nom, "img" => $img,"lien" => $lien]) {
-        echo "<a href='$lien' class='Card'><img src=$img alt='Image 1'><p>$nom</p></a>";
+    foreach ($module as ["nom" => $nom, "img" => $img,"alt" => $alt,"lien" => $lien]) {
+        echo "<a href='$lien' class='Card'><img src=$img alt=$alt><p>$nom</p></a>";
     }
 
 echo "</div>";

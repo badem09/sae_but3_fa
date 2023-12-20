@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="styles/styleIp.css">
 <?php
 require("header.php");
-acceuil(1);
+accueil(1);
 ?>
 <div class="main">
 	<p> Module 1 : Ping d'une adresse Ipv4 </p>

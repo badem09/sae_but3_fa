@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="styles/styleIp.css">
 <?php
+//include l'header en affichant le bouton
 require("header.php");
-acceuil(1);
+accueil(1);
 ?>
 <div class="main">
     <p>Module 2 : IPv6</p>

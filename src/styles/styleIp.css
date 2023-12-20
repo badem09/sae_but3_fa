@@ -96,3 +96,11 @@ textarea{
     width: 16%;
     margin-top: 10px;
 }
+
+#ping_res{
+    margin-right: 20px;
+}
+
+#tab_results{
+    margin-right: 20px;
+}

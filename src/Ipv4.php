@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="styles/styleIp.css">
 <?php
+//include l'header en affichant le bouton
 require("header.php");
-acceuil(1);
+accueil(1);
 ?>
 <div class="main">
     <p>Module 3 : Subnet Calculator</p>
@@ -26,18 +27,20 @@ acceuil(1);
         </div>
     </form>
     <p>Resultats :</p>
-    <table id="results-table">
-        <thead>
-        <tr>
-            <td>Adresse</td>
-            <td>Masque</td>
-            <td>CIDR</td>
-            <td>Machines</td>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div id="tab_results">
+        <table id="results-table">
+            <thead>
+            <tr>
+                <td>Adresse</td>
+                <td>Masque</td>
+                <td>CIDR</td>
+                <td>Machines</td>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 </div class="main">
 <script src="scripts/scriptIpv4.js"></script>
 <?php
