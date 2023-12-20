@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>SAÉ de Noël</title>
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
     <script src="scripts/script.js"></script>
 </head>
 <body>

@@ -24,6 +24,7 @@ header {
 
 button{
     text-align: center;
+    min-width: 100px;
     width: 10%;
     margin-top: 20px;
     padding: 10px;

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="styles/styleIpv4.css">
+<link rel="stylesheet" href="styles/styleIp.css">
 <?php
 require("header.php");
 acceuil(1);
