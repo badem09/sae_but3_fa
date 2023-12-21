@@ -31,33 +31,26 @@ if (is_resource($process)) {
     $stderr_content = ''; // Variable to store stderr content
 
     while (true) {
-        // Read from both stdout and stderr
+
         $line_stdout = fgets($pipes[1]);
         $line_stderr = fgets($pipes[2]);
 
         if ($line_stdout !== false) {
             $accessed = true;
-	    if (strpos($line_stdout, 'PING') === false){
-            if (strpos($line_stdout, "ping statistics") !== false ||
-                strpos($line_stdout, "packets transmitted") !== false ||
-                strpos($line_stdout, "rtt min/avg/max/mdev") !== false) {
-                echo "data: data_resume:$line_stdout\n\n"; // Send summary statistics to the client
-            } else {
-                echo "data: data_table:$line_stdout\n\n"; // Send regular data to the client
+            if (strpos($line_stdout, 'PING') === false){
+                if (strpos($line_stdout, "ping statistics") !== false ||
+                    strpos($line_stdout, "packets transmitted") !== false ||
+                    strpos($line_stdout, "rtt min/avg/max/mdev") !== false) {
+                    echo "data: data_resume:$line_stdout\n\n"; // Send summary statistics to the client
+                } else {
+                    echo "data: data_table:$line_stdout\n\n"; // Send regular data to the client
+                }
+                flush();
+                ob_flush();
             }
-            flush();
-            ob_flush();
-            }
- 	}
- /*       if ($line_stderr !== false){ //&& strpos($line_stderr, "No address associated with hostname") !== false) {
-            // Send an error message related to hostname resolution failure
-            echo "data: data_error:".$line_stderr." \n\n";
-            ob_flush();
-            flush();
-            break;
-        }*/
+        }
+
         if ($line_stderr !== false) {
-            // Collect stderr content
             $stderr_content .= $line_stderr;
         }
 
@@ -95,4 +88,3 @@ if (is_resource($process)) {
     flush();
 }
 ?>
-
