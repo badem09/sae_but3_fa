@@ -8,6 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    z-index: 10;
 }
 
 h1{
@@ -17,9 +18,13 @@ h1{
 }
 
 header {
-    background-color: #73A6D6;
+    background-color: rgb(80, 122, 162);
     color: white;
     padding: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+
 }
 
 #redirectButton{
@@ -96,7 +101,7 @@ footer {
     bottom: 0; left: 0;
     display: flex;
     justify-content: center;
-    background-color: #73A6D6;
+    background-color: rgb(80, 122, 162);
     color: white;
 }
 
