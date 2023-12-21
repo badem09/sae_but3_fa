@@ -35,6 +35,9 @@ accueil(1);
                 <td>Masque</td>
                 <td>CIDR</td>
                 <td>Machines</td>
+                <td>Machines Max</td>
+                <td>Taille du sous reseau</td>
+                <td>Broadcast</td>
             </tr>
             </thead>
             <tbody>
