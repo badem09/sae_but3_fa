@@ -50,8 +50,6 @@ accueil(1);
     </div>
 </div class="main">
 <script src="scripts/scriptIpv4.js"></script>
-<br>
-<br>
 <?php
 include("footer.php");
 ?>

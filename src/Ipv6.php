@@ -29,8 +29,6 @@ accueil(1);
         </div>
     </div>
 </div>
-<br>
-<br>
 <script src="scripts/scriptIpv6.js"></script>
     <?php
 include("footer.php");
