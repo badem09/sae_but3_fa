@@ -5,7 +5,8 @@ require("header.php");
 accueil(1);
 ?>
 <div class="main">
-    <p>Module 2 : IPv6</p>
+    <h2>Module 2 : IPv6</h2>
+    <br>
     <p>Cette page simplifie ou détaille une adresse IPv6. Elle vous donne aussi son type et l’écriture binaire de ses deux bits significatifs.</p>
     <form id="subnet-form">
         <div class="input_form">

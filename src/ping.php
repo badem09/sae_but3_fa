@@ -8,13 +8,13 @@ accueil(1);
 
 <div class="vert-cont">
     <div id="ping-main">
-        <div id="subnet-form">
+        <form id="subnet_form">
             <div class="input_form">
-                <label for='adr_ip'> Adresse à ping : </label>
+                <label for='input_adr_ip'> Adresse à ping : </label>
                 <input type="text" id="input_adr_ip" required>
             </div>
             <div class="input_form">
-                <label for='adr_ip'> Nombre de paquets à envoyer : </label>
+                <label for='input_nb_paquets'> Nombre de paquets à envoyer : </label>
                 <input id="input_nb_paquets" type="number" min="1" max="100" onchange="toggleInputs()">
             </div>
             <div class="input_form">
@@ -25,7 +25,7 @@ accueil(1);
                 <button id='btn_adr_ip'> Ping ! </button>
                 <button id='btn_stop_ping'> Stop </button>
             </div>
-        </div>
+        </form>
         <div id='div_load'></div>
             <div id='ping_res'>
                 <table id="pingTable">
