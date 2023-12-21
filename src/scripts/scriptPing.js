@@ -1,4 +1,3 @@
-var pingTimes = [];
 var eventSource;
 var pingStarted;
 
@@ -16,50 +15,9 @@ function isValidIPAddress(input) {
     return ipRegex.test(input);
 }
 
-function updatePingStats() {
-    console.log(pingTimes);
-    var maxTime = Math.max(...pingTimes);
-    var minTime = Math.min(...pingTimes);
-    var avgTime = pingTimes.reduce((sum, time) => sum + time, 0) / pingTimes.length;
-
-    // Update HTML to display max, min, and avg
-    var statsDiv = document.getElementById("ping-stats");
-    statsDiv.innerHTML = `<p>Max Time: ${maxTime.toFixed(3)} ms</p>`;
-    statsDiv.innerHTML += `<p>Min Time: ${minTime.toFixed(3)} ms</p>`;
-    statsDiv.innerHTML += `<p>Avg Time: ${avgTime.toFixed(3)} ms</p>`;
-}
-
-
-function updatePingTable(result) {
-    /**
-     * Adds a new td : timestamp, pingResult to the table 'pingTable' and scrolls to the bottom
-     */
-    var pingTableBody = document.getElementById("pingTableBody");
-    var row = document.createElement("tr");
-    var timestampCell = document.createElement("td");
-    var resultCell = document.createElement("td");
-    var timestamp = new Date().toLocaleTimeString();
-    timestampCell.textContent = timestamp;
-    resultCell.innerHTML = '<pre>' + result + '</pre>';
-    row.appendChild(timestampCell);
-    row.appendChild(resultCell);
-    pingTableBody.appendChild(row);
-    
-    // Extract time from the result string (you may need to adjust this based on your ping output)
-    var timeMatch = result.match(/time=(\d+\.\d+) ms/);
-    if (timeMatch) {
-        var pingTime = parseFloat(timeMatch[1]);
-        pingTimes.push(pingTime);
-        updatePingStats(); // Update stats when a new ping time is added
-    }
-
-    var pingResDiv = document.getElementById("ping_res");
-    pingResDiv.scrollTop = pingResDiv.scrollHeight; // scroll to the bottom
-}
-
-function getNoPing(data){
-    var match = data.match(/icmp_seq=(\d+)/);
-    return match && parseInt(match[1], 10);
+function isURL(str) {
+    const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
+    return urlPattern.test(str);
 }
 
 function resetTable() {
@@ -70,26 +28,66 @@ function resetDivResume(){
     document.getElementById("div-resume").innerHTML = "";
 }
 
-function isURL(str) {
-    const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
-    return urlPattern.test(str);
+function resetDivStat(){
+    document.getElementById("ping-stats").innerHTML = "";
+}
+
+function updatePingStats(data,pingTimes) {
+
+    // Extract time from the data string (you may need to adjust this based on your ping output)
+    var timeMatch = data.match(/time=(\d+\.\d+) ms/);
+    if (timeMatch) {
+        var pingTime = parseFloat(timeMatch[1]);
+        pingTimes.push(pingTime);
+    
+        console.log(pingTimes);
+        var maxTime = Math.max(...pingTimes);
+        var minTime = Math.min(...pingTimes);
+        var avgTime = pingTimes.reduce((sum, time) => sum + time, 0) / pingTimes.length;
+
+        // Update HTML to display max, min, and avg
+        var statsDiv = document.getElementById("ping-stats");
+        statsDiv.innerHTML = `<p>Max Time: ${maxTime.toFixed(3)} ms</p>`;
+        statsDiv.innerHTML += `<p>Min Time: ${minTime.toFixed(3)} ms</p>`;
+        statsDiv.innerHTML += `<p>Avg Time: ${avgTime.toFixed(3)} ms</p>`;
+
+        return pingTimes;
+    }
+}
+
+
+function updatePingTable(data) {
+    /**
+     * Adds a new td : timestamp, pingResult to the table 'pingTable' and scrolls to the bottom
+     */
+    var pingTableBody = document.getElementById("pingTableBody");
+    var row = document.createElement("tr");
+    var timestampCell = document.createElement("td");
+    var dataCell = document.createElement("td");
+    var timestamp = new Date().toLocaleTimeString();
+    timestampCell.textContent = timestamp;
+    dataCell.innerHTML = '<pre>' + data + '</pre>';
+    row.appendChild(timestampCell);
+    row.appendChild(dataCell);
+    pingTableBody.appendChild(row);
+
+    var pingResDiv = document.getElementById("ping_res");
+    pingResDiv.scrollTop = pingResDiv.scrollHeight; // scroll to the bottom
+}
+
+function getNoPing(data){
+    var match = data.match(/icmp_seq=(\d+)/);
+    return match && parseInt(match[1], 10);
 }
 
 function updateDivResume(data, pingCounter) {
     var pingNo = getNoPing(data);
-    /*var nbTransmitParagraph = document.getElementById("nb-transmit");
-    var nbReceivedParagraph = document.getElementById("nb-received");
-
-    // Update the content of existing paragraphs
-    nbTransmitParagraph.innerHTML = "Nb transmit: " + pingNo;
-    nbReceivedParagraph.innerHTML = "Nb recu: " + pingCounter;*/
     var divResume = document.getElementById("div-resume");
     var packetLoss = (pingNo - pingCounter) / pingNo * 100;
 
     divResume.innerHTML = "<p> Nb transmit: " + pingNo + "</p>";
     divResume.innerHTML += "<p> Nb recu: " + pingCounter + "</p>";
     divResume.innerHTML += "<p> Packet loss: " + packetLoss.toFixed(2) + " %</p>";
-
 }
 
 function toggleInputs() {
@@ -106,8 +104,8 @@ function toggleInputs() {
     if (nbPaquetsInput.value) {
         continuCheckbox.checked = false;
     }
-
 }
+
 
 // Vide les inputs
 window.onload = function() {
@@ -137,6 +135,7 @@ $('body').on('click', '#btn_adr_ip', function (){
         resetDivResume();
         pingStarted = true;
         var pingCounter = 0;
+        var pingTimes = [];
         var url = "ping_action.php?adr_ip="+$adr_ip + "&nb_paquets=" + $nb_paquets;
         if (continu_checkbox.checked){
             url += "&continu=True";
@@ -148,20 +147,16 @@ $('body').on('click', '#btn_adr_ip', function (){
             hideImageLoad();
             if (event.data.startsWith("data_table:") && event.data.length > 11) { // ping
                 pingCounter++;
-		updatePingTable(event.data.substring(11));
-               updateDivResume(event.data.substring(11), pingCounter);
+                updatePingTable(event.data.substring(11));
+                updateDivResume(event.data.substring(11), pingCounter);
+                pingTimes = updatePingStats(event.data.substring(11), pingTimes)
             }
-            /*else if (event.data.startsWith("data_resume:")  && event.data.length > 11) { // resume des ping (fin de l'output de la commande)
-                updateDivResume(event.data.substring(12));
-            }*/
             else if (event.data.startsWith("data_unvalid_ip:")  && event.data.length > 16){ // ping infructueux
-               // updateDivResume(event.data.substring(16));
                 alert(event.data.substring(16));
-	        pingStarted = false;
+                pingStarted = false;
                 eventSource.close();
             }
-            else if (event.data.startsWith("data_error:")  && event.data.length > 10){ //erreur lors du ping 
-               // updateDivResume(event.data.substring(16));
+            else if (event.data.startsWith("data_error:")  && event.data.length > 10){ //erreur lors du ping
                 alert(event.data.substring(11));
                 pingStarted = false;
                 eventSource.close();
