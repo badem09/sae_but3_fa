@@ -1,6 +1,7 @@
 <?php
 //include l'header sans afficher le bouton
 include("header.php");
+
 accueil(0);
 echo "<div class='Cards'>";
     //Génère les différentes cards du menu

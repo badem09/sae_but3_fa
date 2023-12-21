@@ -4,6 +4,8 @@
 require("header.php");
 accueil(1);
 ?>
+<br>
+<br>
 <div class="main">
     <h2>Module 3 : Subnet Calculator</h2>
     <br>
@@ -45,6 +47,8 @@ accueil(1);
     </div>
 </div class="main">
 <script src="scripts/scriptIpv4.js"></script>
+<br>
+<br>
 <?php
 include("footer.php");
 ?>

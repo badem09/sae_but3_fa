@@ -3,7 +3,8 @@
 require("header.php");
 accueil(1);
 ?>
-
+<br>
+<br>
 <h1 class='title'> Module 1 : Ping d'une adresse Ipv4 ou URL </h1>
 
 <div class="vert-cont">
@@ -43,6 +44,8 @@ accueil(1);
     <p> Output du Ping : </p>
     <div id="div-resume"></div>
 </div>
+<br>
+<br>
 
 <script src="scripts/scriptPing.js"></script>
 </body>

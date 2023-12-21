@@ -4,6 +4,8 @@
 require("header.php");
 accueil(1);
 ?>
+<br>
+<br>
 <div class="main">
     <h2>Module 2 : IPv6</h2>
     <br>
@@ -27,6 +29,8 @@ accueil(1);
         </div>
     </div>
 </div>
+<br>
+<br>
 <script src="scripts/scriptIpv6.js"></script>
     <?php
 include("footer.php");
