@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="styles/styleIp.css">
 <?php
 require("header.php");
 accueil(1);
@@ -45,7 +44,6 @@ accueil(1);
     <div class="h-div">
         <div id="div-resume"></div>
 	<div id="ping-stats"></div>
-    </div>
     </div>
 </div>
 <br>
