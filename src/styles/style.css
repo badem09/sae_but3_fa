@@ -8,6 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    z-index: 10;
 }
 
 h1{
@@ -17,9 +18,13 @@ h1{
 }
 
 header {
-    background-color: #73A6D6;
+    background-color: rgb(80, 122, 162);
     color: white;
     padding: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+
 }
 
 #redirectButton{
@@ -96,7 +101,7 @@ footer {
     bottom: 0; left: 0;
     display: flex;
     justify-content: center;
-    background-color: #73A6D6;
+    background-color: rgb(80, 122, 162);
     color: white;
 }
 
@@ -143,9 +148,8 @@ p{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
 
-#subnet-form {
-    flex: 1; /* Take up remaining space in main */
-}
+
+
 
 #div_load {
     /* Add styles for div_load if needed */
@@ -160,3 +164,38 @@ p{
     align-self: center;
 }
 
+.h-div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px; /* Adjust as needed */
+    padding: 10px; /* Add padding for better appearance */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+#ping-main {
+    display: flex; /* Add this to align children horizontally */
+    flex-direction: row; /* Keep the vertical alignment for children */
+    /* Your existing styles for ping-main */
+}
+
+
+.input_form {
+    margin-bottom: 15px; /* Add margin between input_form divs */
+    display: flex;
+    align-items: center; /* Align items to the center vertically */
+    flex-wrap: wrap;
+}
+
+.input_form label {
+    flex: 0 0 auto; /* Let the label be its natural width */
+    margin-right: 10px; /* Add some margin between label and input */
+}
+
+.input_form #input_adr_ip {
+    flex: 1 1 auto; /* Allow the input to grow and take available space */
+    width: 0; /* Set width to 0 so it takes the available space */
+    margin-right: 20px; /* Add some margin between label and input */
+}
+
+.input_form button {
+    margin-right: 10px; /* Add margin between the buttons */
+}

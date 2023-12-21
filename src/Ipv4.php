@@ -4,8 +4,11 @@
 require("header.php");
 accueil(1);
 ?>
+<br>
+<br>
 <div class="main">
-    <p>Module 3 : Subnet Calculator</p>
+    <h2>Module 3 : Subnet Calculator</h2>
+    <br>
     <p>Cette page vous permet de d’obtenir une division de sous-réseaux logiques à partir d’une adresse IPv4 et ub mask avec la notation CIDR.</p>
     <form id="subnet-form">
         <div class="input_form">
@@ -26,7 +29,8 @@ accueil(1);
             <input type="submit" value="Envoyer">
         </div>
     </form>
-    <p>Resultats :</p>
+    <h2>Resultats :</h2>
+    <br>
     <div id="tab_results">
         <table id="results-table">
             <thead>
@@ -46,6 +50,8 @@ accueil(1);
     </div>
 </div class="main">
 <script src="scripts/scriptIpv4.js"></script>
+<br>
+<br>
 <?php
 include("footer.php");
 ?>
