@@ -134,10 +134,17 @@ $('body').on('click', '#btn_adr_ip', function (){
         pingStarted = true;
         var pingCounter = 0;
         var pingTimes = [];
-	var url = "ping_action.php?adr_ip="+$adr_ip + "&nb_paquets=" + $nb_paquets;
-        if (continu_checkbox.checked){
-            url += "&continu=True";
-        }
+	var url = "ping_action.php?adr_ip=" + $adr_ip;
+	if ($nb_paquets !== "") {
+	    url += "&nb_paquets=" + $nb_paquets;
+	}
+	if (continu_checkbox.checked){
+	    url += "&continu=True";
+	}
+	//var url = "ping_action.php?adr_ip="+$adr_ip + "&nb_paquets=" + $nb_paquets;
+        //if (continu_checkbox.checked){
+        //    url += "&continu=True";
+        //}
         showImageLoad();
         eventSource = new EventSource(url);
         eventSource.onmessage = function (event) {
