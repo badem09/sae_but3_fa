@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="img/logo.png">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="scripts/script.js"></script>
+    <link rel="stylesheet" href="styles/styleIp.css">
 </head>
 <body>
 <?php
@@ -24,6 +25,10 @@
                   <h1>SAÉ de Noël</h1>
                   </header>";
         }
+    }
+    
+    function getStyle($relative_path){
+	echo '<link rel="stylesheet" href="styles/' . $relative_path . '>';
     }
     ?>
 
