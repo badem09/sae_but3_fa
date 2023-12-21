@@ -9,7 +9,7 @@ accueil(1);
 
 <div class="vert-cont">
     <div id="ping-main">
-        <form id="subnet_form">
+        <div id="subnet_form">
             <div class="input_form">
                 <label for='input_adr_ip'> Adresse à ping : </label>
                 <input type="text" id="input_adr_ip" required>
@@ -26,7 +26,7 @@ accueil(1);
                 <button id='btn_adr_ip'> Ping ! </button>
                 <button id='btn_stop_ping'> Stop </button>
             </div>
-        </form>
+        </div>
         <div id='div_load'></div>
             <div id='ping_res'>
                 <table id="pingTable">
