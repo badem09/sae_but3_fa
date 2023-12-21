@@ -11,7 +11,7 @@ accueil(1);
         <div id="subnet-form">
             <div class="input_form">
                 <label for='adr_ip'> Adresse à ping : </label>
-                <input type="text" id="input_adr_ip" required>
+                <input type="text" id="input_adr_ip" >
             </div>
             <div class="input_form">
                 <label for='adr_ip'> Nombre de paquets à envoyer : </label>
@@ -39,9 +39,13 @@ accueil(1);
                 </table>
             </div>
         </div>
+                <p> Détail du Ping : </p>
 
-    <p> Output du Ping : </p>
-    <div id="div-resume"></div>
+    <div class="h-div">
+        <div id="div-resume"></div>
+	<div id="ping-stats"></div>
+    </div>
+    </div>
 </div>
 
 <script src="scripts/scriptPing.js"></script>
