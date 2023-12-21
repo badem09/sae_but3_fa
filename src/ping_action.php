@@ -37,7 +37,7 @@ if (is_resource($process)) {
 
         if ($line_stdout !== false) {
             $accessed = true;
-            if (strpos($line_stdout, 'PING') === false){
+            if (strpos($line_stdout, 'PING') === false &&  trim($line_stdout) !== ''){
                 if (strpos($line_stdout, "ping statistics") !== false ||
                     strpos($line_stdout, "packets transmitted") !== false ||
                     strpos($line_stdout, "rtt min/avg/max/mdev") !== false) {
