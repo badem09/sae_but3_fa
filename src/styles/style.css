@@ -27,6 +27,12 @@ header {
 
 }
 
+label{
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
 #redirectButton{
     text-align: center;
     min-width: 100px;
@@ -139,6 +145,7 @@ p{
     align-items: center; /* Align items in the center horizontally */
     margin: 5% auto; /* Center the div horizontally */
     padding: 20px; /* Add padding for better appearance */
+    width: 60%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
     display: flex; /* Use flexbox to align items */
 }
