@@ -1,6 +1,3 @@
-var eventSource;
-var pingStarted;
-
 
 function showImageLoad() {
     document.getElementById("div_load").innerHTML = '<img src="img/loading.webp" alt="Chargement">';
@@ -35,7 +32,7 @@ function resetDivStat(){
 function updatePingStats(data,pingTimes) {
 
     // Extract time from the data string (you may need to adjust this based on your ping output)
-    var timeMatch = data.match(/time=(\d+\.\d+) ms/);
+    var timeMatch = data.match(/time=([\d.]+) ms/);
     if (timeMatch) {
         var pingTime = parseFloat(timeMatch[1]);
         pingTimes.push(pingTime);
@@ -51,7 +48,7 @@ function updatePingStats(data,pingTimes) {
         statsDiv.innerHTML += `<p>Min Time: ${minTime.toFixed(3)} ms</p>`;
         statsDiv.innerHTML += `<p>Avg Time: ${avgTime.toFixed(3)} ms</p>`;
 
-        return pingTimes;
+//        return pingTimes;
     }
 }
 
@@ -113,9 +110,10 @@ window.onload = function() {
     document.getElementById("input_continu").checked = false;
 };
 
+var eventSource;
+var pingStarted;
 
 $('body').on('click', '#btn_adr_ip', function (){
-
     $adr_ip = document.getElementById("input_adr_ip").value
     $nb_paquets = document.getElementById("input_nb_paquets").value
     var continu_checkbox = document.getElementById("input_continu")
@@ -136,7 +134,7 @@ $('body').on('click', '#btn_adr_ip', function (){
         pingStarted = true;
         var pingCounter = 0;
         var pingTimes = [];
-        var url = "ping_action.php?adr_ip="+$adr_ip + "&nb_paquets=" + $nb_paquets;
+	var url = "ping_action.php?adr_ip="+$adr_ip + "&nb_paquets=" + $nb_paquets;
         if (continu_checkbox.checked){
             url += "&continu=True";
         }
@@ -149,7 +147,7 @@ $('body').on('click', '#btn_adr_ip', function (){
                 pingCounter++;
                 updatePingTable(event.data.substring(11));
                 updateDivResume(event.data.substring(11), pingCounter);
-                pingTimes = updatePingStats(event.data.substring(11), pingTimes)
+  		updatePingStats(event.data.substring(11), pingTimes)
             }
             else if (event.data.startsWith("data_unvalid_ip:")  && event.data.length > 16){ // ping infructueux
                 alert(event.data.substring(16));
