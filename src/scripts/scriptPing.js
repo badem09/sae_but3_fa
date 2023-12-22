@@ -44,11 +44,9 @@ function updatePingStats(data,pingTimes) {
 
         // Update HTML to display max, min, and avg
         var statsDiv = document.getElementById("ping-stats");
-        statsDiv.innerHTML = `<p>Max Time: ${maxTime.toFixed(3)} ms</p>`;
-        statsDiv.innerHTML += `<p>Min Time: ${minTime.toFixed(3)} ms</p>`;
-        statsDiv.innerHTML += `<p>Avg Time: ${avgTime.toFixed(3)} ms</p>`;
-
-//        return pingTimes;
+        statsDiv.innerHTML = `<p>Temps maximum: ${maxTime.toFixed(3)} ms</p>`;
+        statsDiv.innerHTML += `<p>Temps minimum: ${minTime.toFixed(3)} ms</p>`;
+        statsDiv.innerHTML += `<p>Temps minimum: ${avgTime.toFixed(3)} ms</p>`;
     }
 }
 
@@ -82,9 +80,9 @@ function updateDivResume(data, pingCounter) {
     var divResume = document.getElementById("div-resume");
     var packetLoss = (pingNo - pingCounter) / pingNo * 100;
 
-    divResume.innerHTML = "<p> Nb transmit: " + pingNo + "</p>";
-    divResume.innerHTML += "<p> Nb recu: " + pingCounter + "</p>";
-    divResume.innerHTML += "<p> Packet loss: " + packetLoss.toFixed(2) + " %</p>";
+    divResume.innerHTML = "<p> Nombre ping transmits: " + pingNo + "</p>";
+    divResume.innerHTML += "<p> Nombre ping réussi: " + pingCounter + "</p>";
+    divResume.innerHTML += "<p> Pourcentage d'echec: " + packetLoss.toFixed(2) + " %</p>";
 }
 
 function toggleInputs() {
