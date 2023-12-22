@@ -49,7 +49,7 @@ Attention si le port 80 est deja utilisé il faut le changer avec -p "ici le por
 sinon :
 
 ```shell
-docker run -dit --name sac_noel_2 -p 80:80 twip4/sae_noel:1.1
+docker run -dit --name sac_noel_2 -p 80:80 twip4/sae_noel:1.2
 ```
 
 une fois le container lancé vous pouvez vérifié avec docker ps :
@@ -174,5 +174,5 @@ Le container est maintenant disponible sur mon compte et est récupérable par c
 Pour la lancer:
 
 ```shell
-docker run -dit --name sac_noel_2 -p 80:80 twip4/sae_noel:1.1
+docker run -dit --name sac_noel_2 -p 80:80 twip4/sae_noel:1.2
 ```
