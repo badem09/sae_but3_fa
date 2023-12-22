@@ -35,7 +35,7 @@ Pour tester docker :
 ```shell
 sudo docker run hello-world
 ```
-Si cela marche vous pouvez passer a l'étape suivante sinon voici un lien qui devrait vous aider :
+Si cela marche vous pouvez passer a l'étape suivante sinon voici un lien qui devrait vous aider : 
 
 https://docs.docker.com/engine/install/
 
@@ -56,7 +56,7 @@ une fois le container lancé vous pouvez vérifié avec docker ps :
 
 il suffit de se rendre sur l'adresse localhost dans votre navigateur.
 
-## 3) Explication de la mise en oeuvre du conteneur docker
+## 3) Explication de la mise en oeuvre du conteneur docker 
 
 
 Explication de la réalisation du docker :

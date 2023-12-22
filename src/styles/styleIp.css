@@ -1,0 +1,129 @@
+.main{
+    padding-top: 100px;
+    padding-left: 1%;
+    padding-bottom: 5%;
+}
+
+.main p {
+    font-size: x-large;
+}
+
+.main h2 {
+    font-size: 1.8em;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+}
+
+
+.main form {
+    font-size: x-large;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+
+}
+
+.main label {
+    font-size: x-large;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 23%;
+    padding: 10px;
+    margin-right: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+}
+
+input[type="text"]:focus,
+input[type="number"],
+textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.input_form{
+    padding-bottom: 10px;
+}
+
+input[type="submit"]{
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+
+}
+
+input[type="submit"]:hover{
+    background-color: rgba(249, 249, 249, 0);
+}
+
+#btn_adr_ip {
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+}
+
+#btn_adr_ip:hover {
+    background-color: rgba(249, 249, 249, 0);
+}
+
+#btn_stop_ping{
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+}
+
+#btn_stop_ping:hover {
+    background-color: rgba(249, 249, 249, 0);
+}
+
+/* Styles pour le tableau */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Supprime les espaces entre les cellules */
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Styles pour les cellules du tableau (étiquettes et champs de saisie) */
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+textarea{
+    height: 35px;
+    width: 23%;
+    margin-top: 10px;
+}
+
+#ping_res{
+    margin-right: 20px;
+}
+
+#tab_results{
+    margin-right: 20px;
+}
