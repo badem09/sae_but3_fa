@@ -6,8 +6,7 @@ accueil(1);
 <br>
 <br>
 <div class="main">
-<h2> Module 1 : Ping d'une adresse Ipv4 ou URL </h2>
-
+<h2> Module 1 : Ping d'une adresse Ipv4 ou URL </h2><br>
 <div class="vert-cont">
     <div id="ping-main">
         <div id="subnet_form">

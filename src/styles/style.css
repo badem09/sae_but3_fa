@@ -90,6 +90,10 @@ label{
     font-weight: bold;
 }
 
+#dropdownMenu a:hover {
+    color : rgb(80, 122, 162);
+}
+
 .menu-hidden {
     display: none;
 }

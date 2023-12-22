@@ -373,6 +373,7 @@ function testCalcSr() {
             sr.broadcast === test.expected[i].broadcast
         );
 
-        console.log(`Test ${test.input.ip}: ${testPassed ? "Pass" : "Fail"}`);
+        console.log(`Test ${test.input.ip}: ${testPassed ? "PASS" : "FAIL"}`);
+
     });
 }
