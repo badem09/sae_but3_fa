@@ -8,4 +8,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
         window.location.href = "index.php";
     });
+
+    document.getElementById("menuButton").addEventListener("click", function() {
+        var menu = document.getElementById("dropdownMenu");
+        console.log(menu);
+        if (menu.classList.contains("menu-hidden")) {
+            menu.classList.remove("menu-hidden");
+            menu.classList.add("menu-visible");
+        } else {
+            menu.classList.remove("menu-visible");
+            menu.classList.add("menu-hidden");
+        }
+    });
 });
+

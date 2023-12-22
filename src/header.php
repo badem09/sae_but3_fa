@@ -17,15 +17,13 @@
         if ($val == 1){
             echo "<header>
                   <button id='redirectButton'>Accueil</button>
+                  <button id='menuButton'>Menu</button>
+                  <div id='dropdownMenu' class='menu-hidden'>
+                  <a href='ping.php'>Module Ping</a>
+                  <a href='Ipv6.php'>Module Ipv6</a>
+                  <a href='Ipv4.php'>Module Ipv4</a>
+                  </div>
                   <h1>SAÉ de Noël</h1>
-		  <div id='menuWrapper'>
-		  <button id='menuButton'>Modules</button>
-		  <div id='menu-modules'>
-			<a href='ping.php'>Module Ping</a> 
-			<a href='Ipv6.php'>Module Ipv6</a> 
-			<a href='Ipv4.php'>Module Ipv4</a> 
-		  </div>
-		  </div>
                   </header>";
         }
         else{

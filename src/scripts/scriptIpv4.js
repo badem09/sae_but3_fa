@@ -315,7 +315,7 @@ function testCalcSr() {
         },
         {
             input: {
-                ip: "192.168.1.0",
+                ip: "192.170.2.0",
                 CIDR: "8",
                 indicesMachines: [234,100,30,6]
             },
