@@ -1,20 +1,18 @@
-// Ajout d'un écouteur d'événements pour gérer la soumission du formulaire.
+// ajout d'un événements pour le formulaire
 document.getElementById("subnet-form").addEventListener("submit", function(event) {
-    // Empêche le comportement par défaut de soumission du formulaire (rechargement de la page).
     event.preventDefault();
 
-    // Récupération des valeurs des champs IP et CIDR du formulaire.
+    // recupere les valeurs de  IP et CIDR
     let ipAddress = document.getElementById("ip").value;
     let cidrNotation = document.getElementById("cidr").value;
 
-    // Initialisation d'une liste pour stocker les valeurs des sous-réseaux.
     let val_sr_value = [];
 
-    // Boucle pour valider et récupérer les valeurs des champs de sous-réseaux.
+    // boucle for pour valider et recuperer les valeur des sous reseaux
     for (let i = 0; i < 50; i++) {
         const val_sr = document.getElementById("val_sr" + i);
         if (val_sr) {
-            // Si la valeur du sous-réseau est un nombre valide et supérieur ou égal à 1.
+            // Si la valeur du sous reseau est nombre valide et > ou = 1
             if (parseInt(val_sr.value) >= 1){
                 val_sr_value.push(parseInt(val_sr.value));
             }
@@ -24,72 +22,69 @@ document.getElementById("subnet-form").addEventListener("submit", function(event
         }
     }
 
-    // Validation de l'adresse IP (doit être une IPv4 valide).
+    // valide l'adresse IP
     if (isIPv4(ipAddress)) {
-        // Validation de la notation CIDR (doit être un nombre entre 1 et 30).
+        // valide le CIDR (1 >= cidr >= 30)
         if (cidrNotation && parseInt(cidrNotation) >= 1 && parseInt(cidrNotation) <= 30) {
-            // Calcul des sous-réseaux en utilisant les valeurs récupérées et triées.
+            // calcule des sous reseaux
             let result = calcSr(ipAddress, cidrNotation, val_sr_value.sort((a, b) => b - a));
 
-            // Si le calcul des sous-réseaux est réussi.
+            // Si le calcul des sous reseau est bon
             if (result != null){
                 const tbody = document.querySelector("#results-table tbody");
 
-                // Effacement des résultats précédents dans la table.
+                // clear le tableau
                 tbody.innerHTML = "";
 
-                // Construction du tableau de résultats avec les sous-réseaux calculés.
+                // construction du tableau avec les valeurs obtenu
                 for (let i = 0; i < result.length; i++) {
                     const newRow = document.createElement("tr");
-                    newRow.appendChild(createCell(result[i].adresse));
-                    newRow.appendChild(createCell(result[i].masque));
-                    newRow.appendChild(createCell(result[i].cidr));
-                    newRow.appendChild(createCell(result[i].machines));
-                    newRow.appendChild(createCell(result[i].machinesMax));
-                    newRow.appendChild(createCell(result[i].assignableRange));
-                    newRow.appendChild(createCell(result[i].broadcast));
+                    newRow.appendChild(newCellule(result[i].adresse));
+                    newRow.appendChild(newCellule(result[i].masque));
+                    newRow.appendChild(newCellule(result[i].cidr));
+                    newRow.appendChild(newCellule(result[i].machines));
+                    newRow.appendChild(newCellule(result[i].machinesMax));
+                    newRow.appendChild(newCellule(result[i].assignableRange));
+                    newRow.appendChild(newCellule(result[i].broadcast));
 
-                    // Ajout de la nouvelle ligne au corps de la table.
+                    // ajout de la ligen dans le tbaleau
                     tbody.appendChild(newRow);
                 }
             }
             else {
-                // Affichage d'une alerte en cas de données incorrectes.
                 alert("données incorrect");
             }
         }
         else {
-            // Affichage d'une alerte en cas de CIDR invalide.
-            alert("error cidr");
+            alert("error cidr (0-30)");
         }
     } else {
-        // Affichage d'une alerte en cas d'adresse IP invalide.
         alert("error ip");
     }
 });
 
-// Fonction pour créer une cellule de tableau avec du texte.
-function createCell(text) {
-    const cell = document.createElement("td");
-    cell.textContent = text;
-    return cell;
+// fonction pour créé une cellule dans le tableau
+function newCellule(data) {
+    const cellule = document.createElement("td");
+    cellule.textContent = data;
+    return cellule;
 }
 
 
-// Ajout d'un gestionnaire d'événement 'input' à un élément avec l'ID 'nb_sr'.
+// Ajout d'un événement pour les tableaux des sous reseaux
 document.getElementById("nb_sr").addEventListener('input', function() {
-    // Récupère et convertit la valeur saisie par l'utilisateur en un nombre entier.
+    // recupere en int la valeur du nombre de sous reseaux
     const valeur_nb_reseaux = parseInt(document.getElementById("nb_sr").value);
 
-    // Vérifie si la valeur saisie est dans l'intervalle [1, 50] et est un nombre.
+    // check que la valeur est dans [1, 50]
     if (valeur_nb_reseaux >= 1 && valeur_nb_reseaux <= 50 && typeof valeur_nb_reseaux === 'number'){
-        // Récupère l'élément avec l'ID 'sous_reseaux' pour y afficher le contenu.
+        // recupere la div sous reseau
         const nb_reseaux_div = document.getElementById("sous_reseaux");
-        nb_reseaux_div.innerHTML = ""; // Efface le contenu actuel de l'élément.
+        // clear la div
+        nb_reseaux_div.innerHTML = "";
 
-        // Boucle pour générer des champs de saisie pour chaque sous-réseau.
+        // boucle qui genere les champs pour les sous reseaux
         for (let i = 1; i <= valeur_nb_reseaux; i++){
-            // Ajoute des champs de saisie pour le nombre de machines par sous-réseau.
             nb_reseaux_div.innerHTML +=
                 `<div class="input_form">
                 <label for="val_sr${i}">Machines par sous réseaux n°${i} :</label>
@@ -98,223 +93,196 @@ document.getElementById("nb_sr").addEventListener('input', function() {
         }
     }
     else {
-        // Si la valeur saisie est incorrecte, affiche un message d'erreur.
+        // si la valeur est incorrecteon afficher l'erreur
         const nb_reseaux_div = document.getElementById("sous_reseaux");
         nb_reseaux_div.innerHTML = "<p style='color: red'>Saisie incorrecte</p>";
     }
 });
 
 /**
- * Vérifie si une chaîne de caractères est une adresse IPv4 valide.
- * @param {string} str - La chaîne de caractères à vérifier.
- * @returns {boolean} Retourne true si la chaîne est une adresse IPv4 valide, sinon false.
+ * verifi si l'adresse IPv4 est valide
+ * @param {string} str - L'ip a check
+ * @returns {boolean} retourne si elle est bien une ipv4.
  */
 function isIPv4(str) {
-    // Utilisation d'une expression régulière pour définir le format d'une adresse IPv4 valide.
-    // Une adresse IPv4 valide est composée de quatre octets, chacun allant de 0 à 255, séparés par des points.
-    // Chaque octet est défini par les parties suivantes de l'expression régulière :
-    // - 25[0-5] : permet les nombres de 250 à 255
-    // - 2[0-4][0-9] : permet les nombres de 200 à 249
-    // - [01]?[0-9][0-9]? : permet les nombres de 0 à 199 (incluant les zéros non significatifs)
-    // Chaque octet est séparé par un point ('\.').
+    // schema d'une ipV4
     const ipv4 = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-    // Teste si la chaîne de caractères donnée correspond au format IPv4 défini par l'expression régulière.
+    // test si l'ip respecte le schema
     return ipv4.test(str);
 }
 
 /**
- * Calcule les sous-réseaux basés sur une adresse IP, un CIDR, et des indices de machines.
- * @param {string} ip - Adresse IP de départ pour la création des sous-réseaux.
- * @param {string} CIDR - Valeur CIDR qui détermine la taille du sous-réseau.
- * @param {Array<number>} indicesMachines - Nombre de machines nécessaires dans chaque sous-réseau.
- * @returns {Array<object> | null} - Tableau contenant les détails des sous-réseaux calculés.
+ * Calcule les sous-réseaux
+ * @param {string} ip - ip du reseau principal
+ * @param {string} CIDR - CIDR du resaeu principal
+ * @param {Array<number>} ListSR - Une liste de numero correspondant au nombre de machine sur chaque sous reseau
+ * @returns {Array<object> | null} - Retourne un tableau avec les sous reseaux ou null si c'est impossible
  */
-function calcSr(ip, CIDR, indicesMachines) {
-    // Convertit le CIDR en un nombre entier pour les calculs.
+function calcSr(ip, CIDR, ListSR) {
     const cidr = parseInt(CIDR);
 
-    // Vérifie la validité de la valeur CIDR.
+    // check la validité du cidr
     if (isNaN(cidr) || cidr < 0 || cidr > 32) {
-        return null; // Retourne null si la valeur CIDR est invalide.
+        return null;
     }
 
-    // Calcule le nombre total d'adresses disponibles basé sur le CIDR.
+    // calcule le nombre max de machine sur le reseau grace au cidr
     const adressesPossibles = Math.pow(2, 32 - cidr);
-    const sousReseaux = []; // Tableau pour stocker les détails des sous-réseaux.
-    let currentIP = ipToDecimal(mettreAZeroSousCIDR(ip,cidr)); // Convertit l'adresse IP de départ en format décimal.
+    const sousReseaux = [];
+    let DepartIP = ipToDecimal(mettreAZeroSousCIDR(ip,cidr)); // donne l'ip de depart et la met a 0 par rapport au cidr
 
-    // Boucle sur chaque indice de machine pour créer un sous-réseau.
-    for (const indiceMachines of indicesMachines) {
-        // Vérifie si le nombre de machines demandé est possible dans le sous-réseau.
-        if (indiceMachines <= 0 || indiceMachines > adressesPossibles) {
-            return null; // Retourne null si le nombre de machines est impossible.
+    // boucle qui verifie si les sous reseaux sont possible grace au cidr
+    for (const NbMachines of ListSR) {
+        if (NbMachines <= 0 || NbMachines > adressesPossibles) {
+            return null;
         }
 
-        let masqueOptimal = cidr; // Détermine le masque de sous-réseau optimal.
-        let adressesDisponibles = adressesPossibles; // Nombre d'adresses disponibles dans le sous-réseau.
+        let masqueOpti = cidr;
+        let adressesDispo = adressesPossibles;
 
-        // Calcule le masque optimal pour accommoder le nombre de machines demandé.
-        while (adressesDisponibles / 2 >= indiceMachines) {
-            masqueOptimal++;
-            if (masqueOptimal >= 30) {
-                masqueOptimal = 30; // Limite le masque à 30 pour éviter les erreurs.
+        // donne le cidr opti pour le nombre de machine
+        while (adressesDispo / 2 >= NbMachines) {
+            masqueOpti++;
+            if (masqueOpti >= 30) {
+                masqueOpti = 30; // masque max 30
                 break;
             }
-            adressesDisponibles /= 2; // Divise les adresses disponibles pour trouver le masque optimal.
+            adressesDispo /= 2;
         }
 
-        // Convertit le masque optimal en format binaire, puis en format décimal.
-        const masqueBinaire = '1'.repeat(masqueOptimal).padEnd(32, '0');
+        // convertie le masque opti en binaire puis en decimal pour avoir ce format 255.255.255.255
+        const masqueBinaire = '1'.repeat(masqueOpti).padEnd(32, '0');
         const masqueDecimal = masqueBinaire.match(/.{8}/g).map(segment => parseInt(segment, 2)).join('.');
 
-        // Calcule l'adresse de sous-réseau actuelle et la dernière adresse IP pour le sous-réseau.
-        let sousReseauIP = decimalToIp(currentIP); // Convertit l'adresse actuelle en format IP.
-        let lastIP = getLastIPAddress(sousReseauIP, masqueOptimal); // Calcule la dernière adresse IP.
-        currentIP = ipToDecimal(lastIP) + 1; // Prépare l'adresse IP pour le prochain sous-réseau.
+        let sousReseauIP = decimalToIp(DepartIP); // Converti l'ip de depart au format ip normal
+        let lastIP = getLastIPAddress(sousReseauIP, masqueOpti); // donne la derniere ip du sous reseau c'est la broadcast
+        DepartIP = ipToDecimal(lastIP) + 1; // redevient en decimal pour la prochaine boucle
 
-        // Ajoute les détails du sous-réseau calculé au tableau.
+        // donne un tableau de toutes les valeurs
         sousReseaux.push({
             adresse: sousReseauIP,
             masque: masqueDecimal,
-            cidr: masqueOptimal,
-            machines: indiceMachines,
-            machinesMax: adressesDisponibles - 2, // Nombre maximal de machines (-2 pour réseau et broadcast).
-            assignableRange: `${incrementIp(sousReseauIP,1)} - ${getPenultimateIPAddress(lastIP)}`, // Plage d'adresses assignable.
-            broadcast: lastIP // Adresse de broadcast.
+            cidr: masqueOpti,
+            machines: NbMachines,
+            machinesMax: adressesDispo - 2, // nombre maximal de machines sur le reseau (-2 pour reseau et broadcast)
+            assignableRange: `${incrementIp(sousReseauIP,1)} - ${incrementIp(lastIP,-1)}`, // plage d'adresses sur le sous reseeau
+            broadcast: lastIP // adresse broadcast
         });
     }
 
-    return sousReseaux; // Retourne le tableau des sous-réseaux.
+    return sousReseaux;
 }
 
 /**
- * Convertit une adresse IP en format décimal.
- * @param {string} ip - Adresse IP à convertir.
- * @returns {number} - Adresse IP en format décimal.
+ * convertie une adresse IP en decimal
+ * @param {string} ip - IP
+ * @returns {number} - iP en decimal
  */
 function ipToDecimal(ip) {
-    // Convertit chaque octet en décimal et les combine en un seul nombre.
+    // convertie chaque octet en decimal pour former un seul nombre
     return ip.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet), 0);
 }
 
 /**
- * Convertit un nombre décimal en adresse IP.
- * @param {number} num - Nombre décimal à convertir.
- * @returns {string} - Adresse IP convertie.
+ * convertie une ip decimal en ip normal
+ * @param {number} num - ip decimal
+ * @returns {string} - Ip normal
  */
 function decimalToIp(num) {
-    // Convertit le nombre décimal en 4 octets et les assemble en une adresse IP.
+    // Convertie un nombre décimal en ipv4
     return [(num >> 24) & 255, (num >> 16) & 255, (num >> 8) & 255, num & 255].join('.');
 }
 
 /**
- * Incremente une adresse IP d'un certain numéro.
- * @param {string} ip - Adresse IP a incrémenter.
- * @param {number} num - nombre a incrémenter.
- * @returns {string} - Adresse IP incrémenté.
+ * Incremente une ip
+ * @param {string} ip - Ip.
+ * @param {number} num - valeur a incrementer
+ * @returns {string} - ip
  */
 function incrementIp(ip, num) {
-    // Convertir l'adresse IP en format décimal.
     let decimalIp = ipToDecimal(ip);
 
-    // Ajouter le nombre num au nombre décimal.
+    // ajout du nombre
     decimalIp += num;
 
-    // Convertir le nouveau nombre décimal en adresse IP au format IPv4.
+    // retour au format normal
     return decimalToIp(decimalIp);
 }
 
 /**
- * Applique un masque de sous-réseau à une adresse IP basé sur un nombre CIDR.
- * @param {string} ip - L'adresse IP en format IPv4.
- * @param {number} cidr - Le nombre CIDR indiquant le masque de sous-réseau.
- * @returns {string} - L'adresse IP avec les bits sous le CIDR mis à zéro.
+ * pour mettre une ip au minimun de son cidr
+ * @param {string} ip - ip
+ * @param {number} cidr - cidr
+ * @returns {string} - ip au minimun du cidr ou ip invalide
  */
 function mettreAZeroSousCIDR(ip, cidr) {
-    // Divise l'adresse IP en octets en utilisant le point comme séparateur.
+    // split chaque morceau de l'ip entre chaque "."
     const octets = ip.split(".");
 
-    // Vérifie que l'adresse IP est constituée de quatre octets.
+    // check que c'est bien la bonne taille
     if (octets.length !== 4) {
         return "Adresse IP invalide";
     }
 
-    // Convertit le CIDR en nombre de bits à mettre à zéro.
+    // donne le nombre de bit a mettre a 0
     const bitsAZero = 32 - cidr;
 
-    // Crée un masque de sous-réseau en positionnant les premiers bits à 1 et les bits restants à 0.
+    // cree le masque a appliquer pour mettre a 0
     const masque = (0xFFFFFFFF << bitsAZero) >>> 0;
 
-    // Applique le masque à chaque octet de l'adresse IP.
+    // applique le masque
     for (let i = 0; i < 4; i++) {
-        // Utilise un ET logique pour appliquer le masque à chaque octet.
         octets[i] = (octets[i] & (masque >> (8 * (3 - i)))) >>> 0;
     }
 
-    // Reconstitue l'adresse IP à partir des octets modifiés.
+    // retourne l'ip ou bon format
     return octets.join(".");
 }
 
 /**
- * Calcule l'avant-dernière adresse IP dans un sous-réseau.
- * @param {string} ip - Adresse IP de broadcast du sous-réseau.
- * @returns {string} - L'avant-dernière adresse IP du sous-réseau.
- */
-function getPenultimateIPAddress(ip) {
-    // Diminue la dernière partie de l'adresse IP de 1 pour obtenir l'adresse avant le broadcast.
-    const octets = ip.split('.').map(Number);
-    octets[3] -= 1;
-    return octets.join('.');
-}
-
-/**
- * Calcule la dernière adresse IP dans un sous-réseau.
- * @param {string} ip - Adresse IP de départ du sous-réseau.
- * @param {number} cidr - Notation CIDR indiquant le nombre de bits pour l'adresse réseau.
- * @returns {string} - Dernière adresse IP possible dans le sous-réseau.
+ * Donne la dernier ip du reseau (Broacast)
+ * @param {string} ip - ip
+ * @param {number} cidr - cidr
+ * @returns {string} - derniere ip
  */
 function getLastIPAddress(ip, cidr) {
-    // Convertit l'adresse IP en décimal et calcule la dernière adresse IP en fonction du CIDR.
+    // convertie l'ip en binaire et donne le nombre max de cette ip grace au cidr
     const octets = ip.split('.');
     const decimalIP = (parseInt(octets[0]) << 24) | (parseInt(octets[1]) << 16) | (parseInt(octets[2]) << 8) | parseInt(octets[3]);
     const numAddresses = 2 ** (32 - cidr);
     const lastIPAddress = decimalIP + numAddresses - 1;
 
-    // Convertit la dernière adresse IP en décimal en 4 octets séparés.
+    // redonne l'ip au bon format
     return [(lastIPAddress >> 24) & 0xff, (lastIPAddress >> 16) & 0xff, (lastIPAddress >> 8) & 0xff, lastIPAddress & 0xff].join('.');
 }
 
 
 /**
- * Teste la fonction isIPv4 avec différents cas d'adresses IPv6.
+ * test la fonction isIPv4
  */
 function testIsIPv4() {
-    // Ensemble de cas de test, chaque cas comprend une adresse IP et le résultat attendu (true ou false).
     const testCases = [
         { ip: "192.168.1.1", expected: true },
         { ip: "255.255.255.255", expected: true },
         { ip: "0.0.0.0", expected: true },
-        { ip: "256.0.0.1", expected: false }, // 256 est hors de portée
-        { ip: "-1.0.0.0", expected: false }, // Les nombres négatifs ne sont pas valides
-        { ip: "192.168.1", expected: false }, // Pas assez de segments
-        { ip: "192.168.1.1.1", expected: false }, // Trop de segments
-        { ip: "abc.def.ghi.jkl", expected: false }, // Non numérique
-        { ip: "192.168.1.1a", expected: false } // Caractère non numérique
+        { ip: "256.0.0.1", expected: false },
+        { ip: "-1.0.0.0", expected: false },
+        { ip: "192.168.1", expected: false },
+        { ip: "192.168.1.1.1", expected: false },
+        { ip: "abc.def.ghi.jkl", expected: false },
+        { ip: "192.168.1.1a", expected: false }
     ];
 
-    // Parcourt chaque cas de test
     testCases.forEach(test => {
-        // Appelle la fonction isIPv4 avec l'adresse IP du cas de test
         const result = isIPv4(test.ip);
 
-        // Compare le résultat obtenu avec le résultat attendu et affiche 'PASS' ou 'FAIL'
         console.log(`Test ${test.ip}: ${result === test.expected ? 'PASS' : 'FAIL'}`);
     });
 }
 
 /**
- * Teste la fonction calcSr avec différents cas.
+ * test la fonction calcSr avec différents cas.
  */
 function testCalcSr() {
     const tests = [
