@@ -1,6 +1,9 @@
 
 Pour installer notre projet il faut avoir docker d'installé et de lancé.
 
+## 1) Installation de docker
+
+
 Si cela n'est pas le cas voici un rapide tutoriel pour debian :
 
 cette commande supprime les packages pour éviter les conflicts :
@@ -36,6 +39,9 @@ Si cela marche vous pouvez passer a l'étape suivante sinon voici un lien qui de
 
 https://docs.docker.com/engine/install/
 
+## 2) Installation du conteneur
+
+
 une fois docker installé et lancé il suffit de lancer cette commande :
 
 Attention si le port 80 est deja utilisé il faut le changer avec -p "ici le port que vous voulez":80
@@ -50,6 +56,9 @@ une fois le container lancé vous pouvez vérifié avec docker ps :
 
 il suffit de se rendre sur l'adresse localhost dans votre navigateur.
 
+## 3) Explication de la mise en oeuvre du conteneur docker 
+
+
 Explication de la réalisation du docker :
 
 J'ai créé un container avec comme image debian :
@@ -60,7 +69,7 @@ docker run -dit --name sae_noel -p 80:80 debian
 docker exec -it "id container" /bin/bash
 ```
 
-une fois dans le container j'ai installé les différents services et application nécessaire ainsi que cloné le projet :
+Une fois dans le container j'ai installé les différents services et applications nécessaires. J'y ai également cloné le répertoire git:
 
 ```shell
 Update upgrade
@@ -80,7 +89,7 @@ cd /home
 git clone https://github.com/badem09/sae_but3_fa.git
 ```
 
-une fois tous installé il a fallut configuré apache :
+Une fois tous cela installé, il a fallut configuré apache :
 
 ```shell
 service apache2 start
@@ -132,10 +141,15 @@ service apache2 reload
 service apache2 start
 ```
 
-une fois apache configuré il a fallut cree un dockerfile pour automatisé le démarrage de apache lors du lancement du container :
+Une fois apache configuré il a fallut crée un dockerfile pour automatiser le démarrage de apache lors du lancement du container :
 
 ```shell
 docker commit "id container initial" twip4/sae_noel:1.1
+```
+Pour les test de fichier php, il a fallut éxecuter cette commande:
+
+```shell
+apt install phpunit
 ```
 
 ```shell
@@ -143,7 +157,7 @@ FROM "idImageCree"
 ENTRYPOINT service apache2 start && /bin/bash
 ```
 
-une fois la nouvelle image créé grace au dockerfile il a fallut la mettre en ligne dans un répertoire docker hub pour la rendre accessible.
+Une fois la nouvelle image créé grace au dockerfile il a fallut la mettre en ligne dans un répertoire docker hub pour la rendre accessible.
 
 ```shell
 docker build -t twip4/sae_noel:1.1 . 
@@ -153,7 +167,9 @@ docker login
 docker push twip4/sae_noel:1.1
 ```
 
-une fois l'image push sur le répertoire docker hub il suffit pour la lancer depuis n'importe quel pc disposant de docker de faire cette commande :
+Le container est maintenant disponible sur mon compte et est récupérable par ceux qui veulent l'installer !
+
+Pour la lancer:
 
 ```shell
 docker run -dit --name sac_noel_2 -p 80:80 twip4/sae_noel:1.1
