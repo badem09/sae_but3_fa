@@ -7,7 +7,7 @@ accueil(1);
 <br>
 <br>
 <div class="main">
-    <h2>Module 3 : Subnet Calculator</h2>
+    <h2>Module 3 : Calculateur de sous réseaux</h2>
     <br>
     <p>Cette page vous permet de d’obtenir une division de sous-réseaux logiques à partir d’une adresse IPv4 et ub mask avec la notation CIDR.</p>
     <form id="subnet-form">

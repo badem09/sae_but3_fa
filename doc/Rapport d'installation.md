@@ -84,6 +84,8 @@ apt-get install git
 
 apt-get install nano
 
+apt-get install phpunit
+
 cd /home
 
 git clone https://github.com/badem09/sae_but3_fa.git
