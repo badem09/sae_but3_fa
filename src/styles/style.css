@@ -189,7 +189,7 @@ p{
 .vert-cont {
     flex-direction: column;
     align-items: center; /* Align items in the center horizontally */
-    margin: 5% auto; /* Center the div horizontally */
+    margin: auto; /* Center the div horizontally */
     padding: 20px; /* Add padding for better appearance */
     width: 60%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
