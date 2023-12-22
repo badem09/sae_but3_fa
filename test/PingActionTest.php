@@ -49,7 +49,7 @@ class PingActionTest extends TestCase
         include '/home/sae_but3_fa/test/ping_action_t.php';
 
         $this->assertEquals(1, count($data_lines));
-        $this->assertStringContainsString('data_unvalid_ip', $data_lines[0]);
+        $this->assertStringContainsString('data_error', $data_lines[0]);
         ob_end_clean();
     }
     
