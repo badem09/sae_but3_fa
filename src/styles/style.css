@@ -47,6 +47,7 @@ label{
     font-weight: bold;
     position: absolute;
 }
+
 #redirectButton:hover{
     background-color: rgba(249, 249, 249, 0);
 }
@@ -207,4 +208,42 @@ p{
 
 .input_form button {
     margin-right: 10px; /* Add margin between the buttons */
+}
+
+
+/* Add styles for the new button */
+#nenuButton{
+    text-align: center;
+    min-width: 100px;
+    width: 10%;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: "Heavitas", sans-serif;
+    font-weight: bold;
+    position: absolute;
+}
+
+
+#menu-modules {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+#menu-modules a {
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+  color: #333;
+}
+
+#menu-modules a:hover {
+  background-color: #f2f2f2;
 }
