@@ -49,6 +49,7 @@ accueil(1);
         </table>
     </div>
 </div class="main">
+<br><br><br><br><br>
 <script src="scripts/scriptIpv4.js"></script>
 <?php
 include("footer.php");

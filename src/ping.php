@@ -4,8 +4,9 @@ accueil(1);
 ?>
 <br>
 <br>
-<h1 class='title'> Module 1 : Ping d'une adresse Ipv4 ou URL </h1>
-
+<br>
+<div class="main">
+<h2> Module 1 : Ping d'une adresse Ipv4 ou URL </h2><br>
 <div class="vert-cont">
     <div id="ping-main">
         <div id="subnet_form">
@@ -45,6 +46,7 @@ accueil(1);
         <div id="div-resume"></div>
 	<div id="ping-stats"></div>
     </div>
+</div>
 </div>
 <br>
 <br>

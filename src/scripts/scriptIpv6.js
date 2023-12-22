@@ -69,39 +69,52 @@ function isIPv6(ip) {
  * @returns {object} un object avec les valeurs pour l'ip
  */
 function simplifier_Binaire_Type_ipv6(ip) {
-    // supprime les 0 devant chaque bloc
-    let blocs = ip.split(':').map(bloc => bloc.replace(/^0+/, '') || '0');
 
-    // trouver la suite de 0 la plus grande
-    let maxBlocTaille = 0;
-    let MaxBlocIndice = -1;
-    let TailleActuel = 0;
+    let ipArray = ip.split(":"); // diviser l'IPv6 en sous tableau
 
-    for (let i = 0; i < blocs.length; i++) {
-        if (blocs[i] === '0') {
-            TailleActuel++;
-            if (TailleActuel > maxBlocTaille) {
-                maxBlocTaille = TailleActuel;
-                MaxBlocIndice = i - TailleActuel + 1;
+    // retire tous les 0 inutile
+    for (let i = 0; i < ipArray.length; i++) {
+        let etat = 1;
+        while(etat){
+            if (ipArray[i][0] === "0") {
+                ipArray[i] = ipArray[i].substring(1);
             }
-        } else {
-            TailleActuel = 0;
+            else {
+                etat = 0;
+            }
         }
     }
 
-    // remplace le bloc de 0 par '::'
-    if (maxBlocTaille > 1) {
-        blocs.splice(MaxBlocIndice, maxBlocTaille, '');
-        if (MaxBlocIndice === 0) blocs.unshift('');
-        if (MaxBlocIndice + maxBlocTaille === blocs.length) blocs.push('');
+    // refusionne les sous tableau
+    ipArray = ipArray.join(":");
+
+
+    // suprime tous les ":" en trop
+    for (let i = 0; i < (ipArray.length*8); i++) {
+        let iModulo = i % ipArray.length ;
+        if (ipArray.substring(iModulo, iModulo + 2) === "::") {
+            if (iModulo + 2 < ipArray.length) {
+                if (ipArray[iModulo + 2] === ":") {
+                    ipArray = ipArray.substring(0, iModulo) + ipArray.substring(iModulo + 1);
+                }
+            }
+        }
     }
 
-    ip = blocs.join(':');
-
-    // si l'ip se termine par ":" alors rajouter un ":"
-    if (ip[ip.length - 1] === ":") {
-        ip += ":";
+    // met un 0 entre les "::" sauf au premier
+    let DeuxPoints = 0
+    for (let i = 0; i < ipArray.length; i++) {
+        if (ipArray.substring(i, i + 2) === "::") {
+            if (DeuxPoints === 1){
+                ipArray = ipArray.substring(0, i) + ":0:" + ipArray.substring(i + 2);
+            }
+            else {
+                DeuxPoints = 1;
+            }
+        }
     }
+
+    const blocs = ip.split(":"); // Divisez l'adresse IPv6 en un tableau d'octets
 
     // convertie en bianaire le premier octet
     const premierOctet = parseInt(blocs[0], 16);
@@ -124,29 +137,28 @@ function simplifier_Binaire_Type_ipv6(ip) {
     const binaryPrefix = blocs[0] ? premierOctet.toString(2).padStart(16, "0") : "";
 
     return {
-        adresseIPv6Simplifiee: ip,
+        adresseIPv6Simplifiee: ipArray,
         binaireOctetsDePoidsFort: binaryPrefix,
         typeAdresseIPv6: typeAdresse
     };
 }
 
-
-
 /**
- * test la fonction isIPv6
+ * Teste la fonction isIPv6
  */
 function testIsIPv6() {
     const testCases = [
         { ip: "2001:0db8:85a3:0000:0000:8a2e:0370:7334", expected: true },
         { ip: "2001:db8::1234::5678", expected: false },
         { ip: "2001:db8:z123::5678", expected: false },
-        { ip: "1234:5678:9ABC:DEF1:2345:6789:ABCD:EF12", expected: true }
+        { ip: "1234:5678:9ABC:DEF1:2345:6789:ABCD:EF12", expected: true },
     ];
 
-    testCases.forEach(test => {
+    testCases.forEach((test, index) => {
         const result = isIPv6(test.ip);
 
-        console.log(`Test ${test.ip}: ${result === test.expected ? 'PASS' : 'FAIL'}`);
+        // Affiche "PASS" si le résultat correspond à l'attendu, sinon "FAIL".
+        console.log(`Test ${index + 1}: ${result === test.expected ? "PASS" : "FAIL"}`);
     });
 }
 
@@ -166,7 +178,7 @@ function testerSimplifier_Binaire_Type_ipv6() {
         {
             input: "fe80:0000:0000:0000:0100:0000:0000:abcd",
             expected: {
-                adresseIPv6Simplifiee: "fe80::100:0:0:abcd",
+                adresseIPv6Simplifiee: "fe80::100:0:abcd",
                 binaireOctetsDePoidsFort: "1111111010000000",
                 typeAdresseIPv6: "Type d'adresse IPv6 non reconnu",
             },
@@ -182,7 +194,7 @@ function testerSimplifier_Binaire_Type_ipv6() {
         {
             input: "0000:0000:1234:5678:abcd:0000:0000:0000",
             expected: {
-                adresseIPv6Simplifiee: "::1234:5678:abcd::",
+                adresseIPv6Simplifiee: "::1234:5678:abcd:0:",
                 binaireOctetsDePoidsFort: "0000000000000000",
                 typeAdresseIPv6: "Adresse IPv6 réservée",
             },
@@ -201,11 +213,13 @@ function testerSimplifier_Binaire_Type_ipv6() {
     tests.forEach((test, index) => {
         const resultat = simplifier_Binaire_Type_ipv6(test.input);
 
+        // Vérifie si le résultat correspond aux valeurs attendues.
         const reussi =
             resultat.adresseIPv6Simplifiee === test.expected.adresseIPv6Simplifiee &&
             resultat.binaireOctetsDePoidsFort === test.expected.binaireOctetsDePoidsFort &&
             resultat.typeAdresseIPv6 === test.expected.typeAdresseIPv6;
 
-        console.log(`Test ${test.input}: ${reussi ? "PASS" : "FAIL"}`);
+        // Affiche "PASS" ou "FAIL" en fonction du succès du test.
+        console.log(`Test ${index + 1}: ${reussi ? "PASS" : "FAIL"}`);
     });
 }
