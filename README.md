@@ -1,4 +1,6 @@
+# Rapport d'installation
 
+(Vous pourrez trouver le rapport de SAE et d'autre documents dans /doc)
 Pour installer notre projet il faut avoir docker d'installé et de lancé.
 
 ## 1) Installation de docker
